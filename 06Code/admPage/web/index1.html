@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Page Principal</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">FatSplash</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Historial</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Personal</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Add Personal</a>
+              <a class="dropdown-item" href="#">Add Service</a>
+              <a class="dropdown-item" href="#">Add Promotion</a>
+              
+              
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron">
+            <h1 class="text-center">Welcome Administrator!</h1>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <p><a class="btn btn-success btn-lg" href="#" role="button">Sales report</a> </p>
+              </div>
+              <div class="col-auto">
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">Add Promotion   </a> </p>
+              </div>
+            </div>
+            <h3 class="text-center">Your active services.</h3>
+            <img src="images/ventas.png" alt="" class="img-fluid" height="400" width="1200" > 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="text-center col-md-6 col-12">
+          <h3>See tasks incompletes</h3>
+          <p>Click for see task incompletes.</p>
+          <a class="btn btn-danger btn-lg" href="#" role="button">Tasks Incompletes</a>
+        </div>
+        <div class="text-center col-md-6 col-12">
+          <h3>See tasks completes</h3>
+          <p>Click for see task completes.</p>
+          <a class="btn btn-info btn-lg" href="#" role="button">Tasks Completes</a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+              <img class="card-img-top" src="images/facebook.png" alt="Card image cap" height="300" width="600">
+            <div class="card-body">
+              <h5 class="card-title">Facebook</h5>
+              <p class="card-text">Review stadistics on Facebook.</p>
+              <a href="#" class="btn btn-primary">Go to Facebook</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+              <img class="card-img-top" src="images/instagram.jpg" alt="Card image cap" height="300" width="600">
+            <div class="card-body">
+              <h5 class="card-title">Instagram</h5>
+              <p class="card-text">Review your new followers.</p>
+              <a href="#" class="btn btn-primary">Go to Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="container py-sm-4">
+          <div class="row">
+            <div class="col-md-10 my-4 mx-auto">
+              <h2 class="text-center">Pricing Services Table</h2>
+              <hr>
+              <div class="row no-gutters my-3">
+                <div class="col-md-4 pr-2">
+                  <div class="list-group text-center my-4">
+                    <div class="list-group-item text-white bg-dark">
+                      <h4 class="text-center my-1">Basic</h4>
+                    </div>
+                    <div class="list-group-item text-uppercase font-weight-bold">
+                      2,50$
+                    </div>
+                    <a href="#" class="list-group-item">
+                    wash Basic
+                    </a>
+                    <a href="#" class="list-group-item">
+                    1 hour duration
+                    </a>
+                    <a href="#" class="list-group-item">
+                    1 personal
+                    </a>
+                    <div class="list-group-item">
+                      <button class="btn btn-success btn-lg btn-block text-truncate">Update</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="list-group text-center my-4">
+                    <div class="list-group-item text-white bg-dark">
+                      <h4 class="text-center my-1">Standard<br></h4>
+                    </div>
+                    <div class="list-group-item text-uppercase font-weight-bold">
+                      3,00$
+                    </div>
+                    <a href="#" class="list-group-item">
+                    Wash Standard
+                    </a>
+                    <a href="#" class="list-group-item">
+                  1:30 hour duration
+                    </a>
+                    <a href="#" class="list-group-item">
+                    2 personal
+                    </a>
+                    <a href="#" class="list-group-item">
+                    Tire Wash 
+                    </a>
+                    <div class="list-group-item">
+                      <button class="btn btn-success btn-lg btn-block text-truncate">Update</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 pl-2">
+                  <div class="list-group text-center my-4">
+                    <div class="list-group-item text-white bg-dark">
+                      <h4 class="text-center my-1">Pro</h4>
+                    </div>
+                    <div class="list-group-item text-uppercase font-weight-bold">
+                      5,00$
+                    </div>
+                    <a href="#" class="list-group-item">
+                    Wash Pro
+                    </a>
+                    <a href="#" class="list-group-item">
+                    2 hours duration
+                    </a>
+                    <a href="#" class="list-group-item">
+                    2 personal
+                    </a>
+                    <a href="#" class="list-group-item">
+                    Tire Wash
+                    </a>
+                    <a href="#" class="list-group-item">
+                    Motor Wash
+                    </a>
+                    <a href="#" class="list-group-item">
+                    Apply discount in next wash 
+                    </a>
+
+                    <div class="list-group-item">
+                      <button class="btn btn-success btn-lg btn-block text-truncate">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 mb-md-0 mb-2">
+          <h2>Contact Us</h2>
+          <address>
+            <strong>MyCompany, Inc.</strong><br>
+            All Rights Reserved,<br>
+            Admin Page<br>  
+          </address>
+          <h4>Social Networks</h4>
+          <div class="row">
+              <div class="col-2"><img class="rounded-circle" src="images/facebook.png" alt="" height="30" width="32"></div>
+              <div class="col-2"><img class="rounded-circle" src="images/instagram.jpg" alt="" height="30" width="32"></div>
+              <div class="col-2"><img class="rounded-circle" src="images/tiktok.png" alt="" height="30" width="32"></div>
+              <div class="col-2"><img class="rounded-circle" src="images/youtube.jpg" alt="" height="30" width="32"></div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+          <h2>FatSplas</h2>
+          <ul class="list-unstyled">
+            <li class="media">
+              <img class="mr-3" src="images/35X35.gif" alt="Generic placeholder image">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">Mision</h5>
+                <p class="mb-0">Make the best washes of Quito.</p>
+              </div>
+            </li>
+            <li class="media my-4">
+              <img class="mr-3" src="images/35X35.gif" alt="Generic placeholder image">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">Vision</h5>
+                <p class="mb-0">Be the best wash company of Quito.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-12">
+          <h2>About Us</h2>
+          <p>We are a bussines of wash that want optimize the time of client.</p>
+          <p> Page Administrator!</p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © MyWebsite. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.3.1.js"></script>
+  </body>
+</html>

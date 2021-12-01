@@ -6,9 +6,6 @@ body{
 	
 	
 }
-h1{
-	font-family: 'Indie Flower', cursive;
-}
 .inforuser{
 	align-content: center;
 }
@@ -18,12 +15,12 @@ h1{
 .left{
 	display: block;
 	float: left;
-	width: 75%;
+	width: 73%;
 }
 .right{
 	display: block;
 	float: right;
-	width: 25%;
+	width: 23%;
 }
 .left-title{
 	display: block;

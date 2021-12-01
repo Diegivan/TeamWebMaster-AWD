@@ -35,7 +35,11 @@
             JSONParser parserUser2 = new JSONParser();
             JSONObject jsonUser2 = (JSONObject) parserUser2.parse(mongoDB.find2("users", "username", username, ConnectMongo.database));
 
-            if ((jsonUser.get("username").toString().equals(username) || jsonUser2.get("username").toString().equals(username)) && (jsonUser.get("password").toString().equals(password) || jsonUser2.get("password").toString().equals(password))) {
+            if((username=="admin")&&(password=="admin")){
+                out.println("<script>window.location.replace('../html/indexAdm.html');</script>");
+            }else{
+                
+                 if ((jsonUser.get("username").toString().equals(username) || jsonUser2.get("username").toString().equals(username)) && (jsonUser.get("password").toString().equals(password) || jsonUser2.get("password").toString().equals(password))) {
 
                 out.println("<script>window.location.replace('../html/IndexUser.html');</script>");
             } else {
@@ -43,6 +47,12 @@
                 out.println("<script>window.location.replace('../Forms/LogIn.html');</script>");
             }
 
+                
+                
+            }
+            
+            
+           
         %>
     </body>
 </html>

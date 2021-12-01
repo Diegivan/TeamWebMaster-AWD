@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -13,8 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <link href="../css/bootstrap-4.3.1.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">FastSplash</a>
+    <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #1254b6;">
+      <a class="navbar-brand container-fluid" href="#">FastSplash</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,12 +32,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
               
             </div>
           </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <li class="nav-item">
+        <form class="form-inline my-2 my-lg-0" style="flex-wrap: nowrap !important;">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Search</button>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">LogOut</button>
-        </form>
+        </form></li>
+      </ul>
       </div>
     </nav>
     <div class="container mt-2">

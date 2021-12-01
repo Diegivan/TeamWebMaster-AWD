@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+.all{
+	display: inline-block;
+}
+.left{
+	display: block;
+	float: left;
+	width: 75%;
+}
+.right{
+	display: block;
+	float: right;
+	width: 25%;
+}
+.left-title{
+	display: block;
+	float: left;
+	width: 50%;
+}
+.right-title{
+	display: block;
+	float: right;
+	width: 50%;
+}
+.left-user{
+	display: block;
+	float: left;
+	width: 25%;
+}
+.right-title{
+	display: block;
+	float: right;
+	width: 75%;
+}
+.img-user{
+	margin-left: 20px;
+}

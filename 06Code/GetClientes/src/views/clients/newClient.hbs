@@ -1,0 +1,38 @@
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/each}}
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>New Client</h3>
+        </div>
+        <div class="card-body">
+            <form action="/clients/new" method="POST">
+                <div class="form-group">
+                    <input type="text" name="firstName" id="firstName" class="form-control mb-3" title="First Name"
+                        placeholder="First Name" autofocus>
+                    <input type="text" name="lastName" id="lastName" class="form-control mb-3" title="Last Name"
+                        placeholder="Last Name">
+                </div>
+                <div class="form-group ">
+                    <input type="text" name="ci" id="ci" class="form-control mb-3" title="CI" placeholder="CI">
+                    <input type="email" name="email" id="email" class="form-control mb-3" title="Email"
+                        placeholder="Email">
+                </div>
+                <div class="form-floating">
+                    <input type="date" name="birthDate" id="dateBirth" class="form-control mb-3 form-floating"
+                        title="Date of Birth">
+                    <label for="birthDate">Date of Birth</label>
+                </div>
+                <div class="form-group d-grid">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

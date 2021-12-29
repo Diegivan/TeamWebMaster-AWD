@@ -1,0 +1,32 @@
+###
+POST http://localhost:8085/clients HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Pablo",
+    "lastName": "Cortez",
+    "ci": "17585858695",
+    "email": "pabloc@gmail.com",
+    "birthDate": "1998-12-12"
+}
+
+###
+GET http://localhost:8085/clients HTTP/1.1
+
+###
+GET http://localhost:8085/clients/61bea91946007b30af2a8dd9 HTTP/1.1
+
+###
+PUT http://localhost:8085/clients/61bea78be1e8af3bba49e86e HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Christian",
+    "lastName": "Novoa",
+    "ci": "1725793390",
+    "email": "cnovoa@gmail.com",
+    "birthDate": "2001-01-19"
+}
+
+###
+DELETE http://localhost:8085/clients/61bea91946007b30af2a8dd9 HTTP/1.1

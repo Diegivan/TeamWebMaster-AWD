@@ -12,7 +12,7 @@ require('./database');
 
 // Settings
 app.set('port', port);
-app.set('views', path.join(__dirname,'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -24,7 +24,7 @@ app.set('view engine', '.hbs');
 //middleware
 /*app.use(express.json());
 app.use(clientRoutes);*/
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'mysecretapp',
@@ -46,5 +46,11 @@ app.use(express.static(path.join(__dirname, 'public')));
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((error) => console.error(error));
 */
-app.listen(port, () => console.log('Server listening on port', port,'\nhttp://localhost:'+port)); 
+app.listen(port, () => console.log('Server listening on port', port, '\nhttp://localhost:' + port));
 
+//script @index+1
+var Handlebars = require('handlebars');
+
+Handlebars.registerHelper("inc", function (value, options) {
+    return parseInt(value) + 1;
+});

@@ -11,19 +11,19 @@ router.post('/clients/new', async (req, res) => {
     const { firstName, lastName, ci, email, birthDate } = req.body;
     const errors = [];
     if (!firstName) {
-        errors.push({ text: 'Please insert your first name' });
+        errors.push({ text: 'Error: Debe ingresar su nombre' });
     }
     if (!lastName) {
-        errors.push({ text: 'Please insert your last name' });
+        errors.push({ text: 'Error: Debe ingresar su apellido' });
     }
     if (!ci) {
-        errors.push({ text: 'Please insert your ci' });
+        errors.push({ text: 'Error: Debe ingresar su cédula' });
     }
     if (!email) {
-        errors.push({ text: 'Please insert your email' });
+        errors.push({ text: 'Error: Debe ingresar su email' });
     }
     if (!birthDate) {
-        errors.push({ text: 'Please insert your date of birth' });
+        errors.push({ text: 'Error: Debe ingresar su fecha de nacimiento' });
     }
     if (errors.length > 0) {
         res.render('clients/newClient', {
@@ -37,6 +37,7 @@ router.post('/clients/new', async (req, res) => {
     } else {
         const newClient = new Client({ firstName, lastName, ci, email, birthDate });
         await newClient.save();
+        req.flash('success_msg', 'Cliente agregado satisfactoriamente');
         res.redirect('/admin/clients');
     };
 });
@@ -54,11 +55,13 @@ router.get('/admin/clients/edit/:id', async (req, res) => {
 router.put('/clients/editClient/:id', async (req, res) => {
     const { firstName, lastName, ci, email, birthDate } = req.body;
     await Client.findByIdAndUpdate(req.params.id, { firstName, lastName, ci, email, birthDate }).lean();
+    req.flash('success_msg', 'Cliente modificado satisfactoriamente');
     res.redirect('/admin/clients');
 });
 
 router.delete('/admin/clients/delete/:id', async (req, res) => {
     await Client.findByIdAndDelete(req.params.id).lean();
+    req.flash('success_msg', 'Cliente eliminado satisfactoriamente');
     res.redirect('/admin/clients');
 });
 

@@ -13,6 +13,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Cédula</th>
                     <th scope="col">Email</th>
+                    <!-- <th scope="col">Usuario</th>-->
                     <th scope="col">Fecha de Nacimiento</th>
                     <th scope="col">Fecha de creación</th>
                     <th scope="col">Operaciones</th>
@@ -25,6 +26,14 @@
                     <td>{{firstName}} {{lastName}}</td>
                     <td>{{ci}}</td>
                     <td>{{email}}</td>
+                    <!--<td>
+                    {{#each users}}
+                        
+                        {{userName}}
+                        
+                    {{/each}}
+                    -->
+                    </td>
                     <td>{{birthDate}}</td>
                     <td>{{date}}</td>
                     <td>
@@ -64,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
+                {{/each}}                
             </tbody>
         </table>
     </div>

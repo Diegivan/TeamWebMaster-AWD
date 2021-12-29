@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const Client = require('../models/client');
+const User = require('../models/user');
 
 router.get('/admin/clients/new', (req, res) => {
     res.render('clients/newClient');
 });
 
 router.post('/clients/new', async (req, res) => {
-    const { firstName, lastName, ci, email, birthDate } = req.body;
+    const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
     const errors = [];
     if (!firstName) {
         errors.push({ text: 'Error: Debe ingresar su nombre' });
@@ -25,6 +26,15 @@ router.post('/clients/new', async (req, res) => {
     if (!birthDate) {
         errors.push({ text: 'Error: Debe ingresar su fecha de nacimiento' });
     }
+    if (!userName) {
+        errors.push({ text: 'Error: Debe ingresar su nombre de usuario' });
+    }
+    if (!password || !confirmPassword) {
+        errors.push({ text: 'Error: Debe ingresar una contraseña' });
+    }
+    if (password != confirmPassword) {
+        errors.push({ text: 'Error: Las contraseñas no coinciden' });
+    }
     if (errors.length > 0) {
         res.render('clients/newClient', {
             errors,
@@ -32,10 +42,16 @@ router.post('/clients/new', async (req, res) => {
             lastName,
             ci,
             email,
-            birthDate
+            birthDate,
+            userName,
+            password,
+            rol
         });
     } else {
-        const newClient = new Client({ firstName, lastName, ci, email, birthDate });
+        const newUser = new User({ userName, password, rol });
+        await newUser.save();
+        const { _id } = newUser;
+        const newClient = new Client({ firstName, lastName, ci, email, birthDate, userId: _id });
         await newClient.save();
         req.flash('success_msg', 'Cliente agregado satisfactoriamente');
         res.redirect('/admin/clients');
@@ -44,7 +60,8 @@ router.post('/clients/new', async (req, res) => {
 
 router.get('/admin/clients', async (req, res) => {
     const clients = await Client.find({}).lean();
-    res.render('clients/allClients', { clients });
+    const users = await User.find({}).lean();
+    res.render('clients/allClients', { clients, users });
 });
 
 router.get('/admin/clients/edit/:id', async (req, res) => {

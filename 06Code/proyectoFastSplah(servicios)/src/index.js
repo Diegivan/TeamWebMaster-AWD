@@ -9,7 +9,7 @@ const session = require('express-session');
 const app = express();
 require('./database');
 //settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views',path.join(__dirname,'views'));
 app.set('.hbs', exphbs.engine({
     defaultLayout: 'main',

@@ -93,10 +93,18 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
     }
 });
 
-Handlebars.registerHelper('if_eq', function(a, b, opts) {
+Handlebars.registerHelper('if_eq', function (a, b, opts) {
     if (toString(a) == b) {
         return opts.fn(this);
     } else {
         return opts.inverse(this);
     }
 });
+
+const User = require('./models/user');
+Handlebars.registerHelper('find', async function (id) {
+    console.log(id);
+    const { userName } = await User.findById(id).lean();
+    console.log(userName);
+    return userName;
+}); 

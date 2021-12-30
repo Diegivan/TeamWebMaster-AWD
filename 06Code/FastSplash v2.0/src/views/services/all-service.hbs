@@ -1,3 +1,10 @@
+<div class="row col-md-10 mx-auto">
+    <h2 class="display-6">Servicios</h2>
+    <div class="mx-auto card">
+        <div class="d-flex justify-content-end mt-3">
+            <a href="/admin/services/add-service" class="btn btn-success btn-block">Añadir Servicios</a>
+        </div>
+        <hr>
 <div class="row">
     <table class="table">
         <thead>
@@ -15,16 +22,52 @@
                 <td>{{price}}</td>
 
 
-                <td class="d-flex justify-content-around"><a href="/admin/edit-services/{{_id}}"><i
+                <!--<td class="d-flex justify-content-around"><a href="/admin/edit-services/{{_id}}"><i
                             class="far fa-edit"></i></a>
                     <form action="/admin/delete-service/{{_id}}?_method=DELETE" method="post">
                         <input type="hidden" name="_method" value="DELETE">
                         <button>Borrar</button>
                     </form>
-                </td>
+                </td>-->
+                <td>
+                        <div class="d-flex justify-content-around">
+                            <a href="/admin/edit-services/{{_id}}" title="Editar"><i class="far fa-edit"></i></a>
+                            <!-- Button trigger modal -->
+                            <button type="submit" class="btn-invisible" data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmation{{_id}}" title="Eliminar">
+                                <i class="far fa-trash-alt" style="color:rgb(211, 34, 34);"></i>
+                            </button>
+                        </div>
+                    </td>
             </tr>
+            <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
+                    aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmationModalLabel">Confirmación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar el registro {{inc @index}}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <form action="/admin/delete-service/{{_id}}?_method=DELETE" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {{/each}}
 
         </tbody>
     </table>
+</div>
 </div>

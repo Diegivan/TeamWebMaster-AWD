@@ -5,31 +5,22 @@
             <a href="/admin/services/add-service" class="btn btn-success btn-block">Añadir Servicios</a>
         </div>
         <hr>
-<div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">descripcion</th>
-                <th scope="col">Precio</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each service}}
-            <tr>
-                <td scope="row">{{name}}</td>
-                <td>{{description}}</td>
-                <td>{{price}}</td>
 
-
-                <!--<td class="d-flex justify-content-around"><a href="/admin/edit-services/{{_id}}"><i
-                            class="far fa-edit"></i></a>
-                    <form action="/admin/delete-service/{{_id}}?_method=DELETE" method="post">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button>Borrar</button>
-                    </form>
-                </td>-->
-                <td>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">descripcion</th>
+                    <th scope="col">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each service}}
+                <tr>
+                    <td scope="row">{{name}}</td>
+                    <td>{{description}}</td>
+                    <td>{{price}}</td>
+                    <td>
                         <div class="d-flex justify-content-around">
                             <a href="/admin/edit-services/{{_id}}" title="Editar"><i class="far fa-edit"></i></a>
                             <!-- Button trigger modal -->
@@ -39,8 +30,8 @@
                             </button>
                         </div>
                     </td>
-            </tr>
-            <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
+                </tr>
+                <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
                     aria-labelledby="confirmationModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -65,9 +56,10 @@
                         </div>
                     </div>
                 </div>
-            {{/each}}
+                {{/each}}
 
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+
 </div>

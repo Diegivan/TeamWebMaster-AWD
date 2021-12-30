@@ -7,15 +7,15 @@
             <form action="/admin/edit-admins/{{admin._id}}?_method=PUT" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" value={{admin.name}}>
+                    <input type="text" name="name" class="form-control" value="{{admin.name}}">
                 </div>
                 <p></p>
                 <div class="form-group">
-                    <input type="text" name="lastname" class="form-control" value={{admin.lastname}}>
+                    <input type="text" name="lastname" class="form-control" value="{{admin.lastname}}">
                 </div>
                 <p></p>
                 <div class="form-group">
-                    <input type="text" name="CI" class="form-control" value={{admin.CI}} disabled>
+                    <input type="text" name="CI" class="form-control" value="{{admin.CI}}" disabled>
                 </div>
                 <p></p>
                 <div class="form-group">

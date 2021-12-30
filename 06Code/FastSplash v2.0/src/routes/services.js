@@ -41,7 +41,7 @@ router.get('/admin/services',async(req, res) => {
 
 router.get('/admin/edit-services/:id',async(req, res) => {
     const service = await Service.findById(req.params.id).lean();
-    res.render('services/edit-service',{service});
+    res.render('services/edit-service',{ service });
     
 });
 router.put('/services/edit-service/:id',async(req, res) => {

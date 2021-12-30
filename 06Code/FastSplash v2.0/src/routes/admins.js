@@ -35,7 +35,7 @@ router.post('/admin/new-admin',async(req, res) => {
            name,
            lastname,
            CI,
-           username,
+           userName,
            password
         })
     }

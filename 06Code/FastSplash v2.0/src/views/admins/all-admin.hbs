@@ -5,6 +5,7 @@
             <a href="/admin/add" class="btn btn-success btn-block">Añadir Administradores</a>
         </div>
         <hr>
+<<<<<<< Updated upstream
         <div class="row">
             <table class="table">
            <thead>
@@ -30,6 +31,24 @@
                             </form>
                         </i></a></td>-->
                  <td>
+=======
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nombre completo</th>
+                    <th scope="col">CI</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each admin}}
+                <tr>
+                    <td scope="row">{{inc @index}}</td>
+                    <td>{{name}} {{lastname}}</td>
+                    <td>{{CI}}</td>
+                    <td>
+>>>>>>> Stashed changes
                         <div class="d-flex justify-content-around">
                             <a href="/admin/edit-admins/{{_id}}" title="Editar"><i class="far fa-edit"></i></a>
                             <!-- Button trigger modal -->
@@ -39,8 +58,8 @@
                             </button>
                         </div>
                     </td>
-             </tr>
-             <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
+                </tr>
+                <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
                     aria-labelledby="confirmationModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -65,9 +84,9 @@
                         </div>
                     </div>
                 </div>
-             {{/each}}
+                {{/each}}
 
-         </tbody>
-     </table>
-   </div>
+            </tbody>
+        </table>
+    </div>
 </div>

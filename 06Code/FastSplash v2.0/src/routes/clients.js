@@ -3,7 +3,6 @@ const { findById } = require("../models/client");
 const router = express.Router();
 
 const Client = require('../models/client');
-const user = require("../models/user");
 const User = require('../models/user');
 
 router.get('/admin/clients/new', (req, res) => {

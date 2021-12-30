@@ -83,9 +83,9 @@ router.post('/clients/new', async (req, res) => {
             const { _id } = newUser;
             const newClient = new Client({ firstName, lastName, ci, email, birthDate, userId: _id });
             await newClient.save();
+            req.flash('success_msg', 'Cliente agregado satisfactoriamente');
             res.redirect('/admin/clients');
         }
-        req.flash('success_msg', 'Cliente agregado satisfactoriamente');
     };
 });
 

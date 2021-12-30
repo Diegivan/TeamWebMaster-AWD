@@ -19,11 +19,11 @@ router.post('/admin/new-admin',async(req, res) => {
     if(!CI){
         errors.push({text:'Ingrese cedula'});
     }
-    if(!userName){
-        errors.push({text:'Ingrese nombre de usuario'});
+    if(!userName || userName.length<5){
+        errors.push({text:'Ingrese un nombre de usuario, debe contener mas de 5 caracteres '});
     }
-    if(!password){
-        errors.push({text:'Ingrese contrasena'});
+    if(!password || password.length<5){
+        errors.push({text:'Ingrese una contrasena, debe ser mayor a 5 caracteres'});
     }
     if (password != confirmPassword) {
         errors.push({ text: 'Error: Las contraseñas no coinciden' });

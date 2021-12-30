@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admins');
+const User = require('../models/user');
 
 router.get('/admin/add',(req, res) => {
     res.render('admins/new-admin');
 });
 
 router.post('/admin/new-admin',async(req, res) => {
-    const { name, lastname, CI, username, password, confirmPassword}=req.body;
+    const { name, lastname, CI, userName, password, confirmPassword, rol}=req.body;
     const errors = [];
     if(!name){
         errors.push({text:'Ingrese nombre'});
@@ -18,7 +19,7 @@ router.post('/admin/new-admin',async(req, res) => {
     if(!CI){
         errors.push({text:'Ingrese cedula'});
     }
-    if(!username){
+    if(!userName){
         errors.push({text:'Ingrese nombre de usuario'});
     }
     if(!password){
@@ -39,7 +40,10 @@ router.post('/admin/new-admin',async(req, res) => {
         })
     }
     else{
-        const NewAdmin = new Admin({ name, lastname, CI, username, password});
+        const newUser = new User({ userName, password, rol });
+        await newUser.save();
+        const { _id } = newUser;
+        const NewAdmin = new Admin({ name, lastname, CI, userId: _id});
         await NewAdmin.save();
         
         res.redirect('/admin/admins')
@@ -56,8 +60,8 @@ router.get('/admin/edit-admins/:id',async(req, res) => {
     
 });
 router.put('/admin/edit-admins/:id',async(req, res) => {
-    const { name, lastname, CI, username, password}=req.body;
-    await Admin.findByIdAndUpdate(req.params.id,{name, lastname, CI, username, password}).lean();
+    const { name, lastname, CI}=req.body;
+    await Admin.findByIdAndUpdate(req.params.id,{name, lastname, CI}).lean();
     req.flash('success_msg', 'Administrador editado satisfactoriamente');
     res.redirect('/admin/admins')
 });

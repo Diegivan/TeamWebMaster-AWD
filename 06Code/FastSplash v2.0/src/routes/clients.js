@@ -4,12 +4,13 @@ const router = express.Router();
 
 const Client = require('../models/client');
 const User = require('../models/user');
+const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/admin/clients/new', (req, res) => {
+router.get('/admin/clients/new', isAuthenticated, (req, res) => {
     res.render('clients/newClient');
 });
 
-router.post('/clients/new', async (req, res) => {
+router.post('/clients/new',  isAuthenticated, async (req, res) => {
     const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
     const errors = [];
     if (!firstName) {
@@ -89,19 +90,19 @@ router.post('/clients/new', async (req, res) => {
     };
 });
 
-router.get('/admin/clients', async (req, res) => {
+router.get('/admin/clients',  isAuthenticated, async (req, res) => {
     const clients = await Client.find({}).lean();
     const users = await User.find({}).lean();
     res.render('clients/allClients', { clients, users });
 });
 
-router.get('/admin/clients/edit/:id', async (req, res) => {
+router.get('/admin/clients/edit/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
     const user = await User.findById(client.userId).lean();
     res.render('clients/editClient', { client, user });
 });
 
-router.put('/clients/editClient/:id', async (req, res) => {
+router.put('/clients/editClient/:id',  isAuthenticated, async (req, res) => {
     const { _id, firstName, lastName, ci, email, birthDate, userId, userName, actualPassword, password, confirmPassword, rol } = req.body;
     const user = await User.findById(userId).lean();
     console.log(user);
@@ -196,7 +197,7 @@ router.put('/clients/editClient/:id', async (req, res) => {
     };
 });
 
-router.delete('/admin/clients/delete/:id', async (req, res) => {
+router.delete('/admin/clients/delete/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
     await Client.findByIdAndDelete(req.params.id).lean();
     await User.findByIdAndDelete(client.userId).lean();

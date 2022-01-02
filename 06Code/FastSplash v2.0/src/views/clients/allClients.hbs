@@ -1,6 +1,6 @@
 {{#if clients}}
 <div class="row col-md-10 mx-auto">
-    <h2 class="display-6">Clientes</h2>
+    <h2 class="display-6">Clientes </h2>
     <div class="mx-auto card">
         <div class="d-flex justify-content-end mt-3">
             <a href="/admin/clients/new" class="btn btn-success btn-block">Añadir Clientes</a>
@@ -23,7 +23,7 @@
                 {{#each clients}}
                 <tr>
                     <td scope="row">{{inc @index}}</td>
-                    <td>{{firstName}} {{lastName}}</td>
+                    <td>{{firstName}} {{lastName}}</td> 
                     <td>{{ci}}</td>
                     <td>{{email}}</td>
                     <td>{{find userId}}</td>

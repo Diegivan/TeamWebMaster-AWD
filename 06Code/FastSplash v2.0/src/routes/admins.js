@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admins');
 const User = require('../models/user');
+const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/admin/add',(req, res) => {
+router.get('/admin/add', isAuthenticated , (req, res) => {
     res.render('admins/new-admin');
 });
 
-router.post('/admin/new-admin',async(req, res) => {
+router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
     const { name, lastname, CI, userName, password, confirmPassword, rol}=req.body;
     const errors = [];
     if(!name){
@@ -49,23 +50,23 @@ router.post('/admin/new-admin',async(req, res) => {
         res.redirect('/admin/admins')
     }
  });
-router.get('/admin/admins',async(req, res) => {
+router.get('/admin/admins', isAuthenticated , async(req, res) => {
      const admin = await Admin.find({}).lean();
      res.render('admins/all-admin',{ admin });
      
 });
-router.get('/admin/edit-admins/:id',async(req, res) => {
+router.get('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
     const admin = await Admin.findById(req.params.id).lean();
     res.render('admins/edit-admins',{admin});
     
 });
-router.put('/admin/edit-admins/:id',async(req, res) => {
+router.put('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
     const { name, lastname, CI}=req.body;
     await Admin.findByIdAndUpdate(req.params.id,{name, lastname, CI}).lean();
     req.flash('success_msg', 'Administrador editado satisfactoriamente');
     res.redirect('/admin/admins')
 });
-router.delete('/admin/delete/:id',async(req, res) => {
+router.delete('/admin/delete/:id', isAuthenticated , async(req, res) => {
     await Admin.findByIdAndDelete(req.params.id).lean();
     req.flash('success_msg', 'Administrador eliminado satisfactoriamente');
     res.redirect('/admin/admins')

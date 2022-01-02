@@ -1,1 +1,3 @@
-var myModal = new bootstrap.Modal(document.getElementById('deleteConfirmation'), myModal.show())
+$(document).ready(function() {
+    $(".dropdown-toggle").dropdown();
+});

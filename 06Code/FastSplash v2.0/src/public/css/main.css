@@ -8,3 +8,10 @@ body {
     padding: 0;
     background: transparent;
 }
+
+.logo {
+    display: flex;
+    max-width: 15%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}

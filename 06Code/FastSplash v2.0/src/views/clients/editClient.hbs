@@ -1,9 +1,3 @@
-{{#each errors}}
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    {{text}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{{/each}}
 <div class="col-md-4 mx-auto">
     <div class="card">
         <div class="card-header">
@@ -52,6 +46,7 @@
         </div>
     </div>
 </div>
+<script src="../../js/validations.js"></script>
 <script>
     document.getElementById("actualPassword").addEventListener("input", function(){
         if(this.value != ""){

@@ -42,6 +42,7 @@ router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
     }
     else{
         const newUser = new User({ userName, password, rol });
+        newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
         const { _id } = newUser;
         const NewAdmin = new Admin({ name, lastname, CI, userId: _id});

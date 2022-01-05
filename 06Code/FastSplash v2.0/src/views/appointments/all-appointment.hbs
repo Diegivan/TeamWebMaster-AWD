@@ -41,11 +41,10 @@
                         {{/ifCond}}
                     <td>
                         <div class="d-flex justify-content-around">
-                            <a href="/admin/edit-services/{{_id}}" title="Editar"><i class="far fa-edit"></i></a>
                             <!-- Button trigger modal -->
-                            <button type="submit" class="btn-invisible" data-bs-toggle="modal"
+                            <button type="submit" class="btn-danger btn btn-block" data-bs-toggle="modal"
                                 data-bs-target="#deleteConfirmation{{_id}}" title="Eliminar">
-                                <i class="far fa-trash-alt" style="color:rgb(211, 34, 34);"></i>
+                                Cancelar
                             </button>
                         </div>
                     </td>
@@ -60,7 +59,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                ¿Está seguro que desea eliminar el registro {{inc @index}}?
+                                ¿Está seguro que desea cancelar esta cita?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"

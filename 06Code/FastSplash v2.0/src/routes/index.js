@@ -9,9 +9,15 @@ router.get('/',(req, res) => {
 router.get('/about',(req, res) => {
     res.render('about');
 });
+
 router.get('/promotions',(req, res) => {
     res.render('promotions');
 });
+
+router.get('/contactus',(req, res) => {
+    res.render('contactus');
+});
+
 router.get('/services', async(req, res) => {
     const services = await Service .find({}).lean();
     res.render('services',{ services });

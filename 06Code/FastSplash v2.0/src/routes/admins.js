@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admins');
+const Service = require('../models/Services');
+const Appointment = require('../models/Appointments');
 const User = require('../models/user');
 const { isAuthenticated } = require('../helpers/auth');
 
@@ -139,4 +141,7 @@ router.delete('/admin/delete/:id', isAuthenticated , async(req, res) => {
     req.flash('success_msg', 'Administrador eliminado satisfactoriamente');
     res.redirect('/admin/admins')
 });
+
+
+
 module.exports = router;

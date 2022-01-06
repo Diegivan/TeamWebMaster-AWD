@@ -13,7 +13,7 @@ const { ClientRequest } = require('http');
 
 
 router.get('/appointment', async(req, res)=> {
-    const services = await Services.find({}).lean();
+    const services = await Service.find({}).lean();
     res.render('appointments/new-appointments', {services});
 })
 
@@ -77,7 +77,7 @@ router.post('/appointment',async(req, res) => {
 
  router.get('/historial/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();
-    res.render('appointments/all-appointment',{ appointment });
+    res.render('appointments/all-appointmenscl',{ appointment });
 });
 
 router.get('/admin/appointments',async(req, res) => {

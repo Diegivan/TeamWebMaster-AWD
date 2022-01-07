@@ -77,7 +77,17 @@ router.post('/appointment',async(req, res) => {
 
  router.get('/historial/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();
-    res.render('appointments/all-appointmenscl',{ appointment });
+    const data = appointment;
+    var dataReports = [];
+    var j = 0;
+    for(var i = 0; i < data.length; i++){
+        if(data[i].Name===req.user.userName){
+            dataReports[j]=data[i];
+            j++
+        }
+    }
+    
+    res.render('appointments/all-appointment',{ dataReports });
 });
 
 router.get('/admin/appointments',async(req, res) => {

@@ -87,7 +87,7 @@ router.post('/appointment',async(req, res) => {
         }
     }
     
-    res.render('appointments/all-appointment',{ dataReports });
+    res.render('appointments/all-appointmenscl',{ dataReports });
 });
 
 router.get('/admin/appointments',async(req, res) => {

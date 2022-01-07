@@ -9,6 +9,7 @@
         <table class="table">
             <thead>
                 <tr>
+
                     <th scope="col">Direccion</th>
                     <th scope="col">Referencia</th>
                     <th scope="col">Placa</th>
@@ -22,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each dataReports}}
+                {{#each appointment}}
                 <tr>
                     <td scope="row">{{Adress}}</td>
                     <td>{{Reference}}</td>
@@ -73,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
+                 {{/each}}
 
             </tbody>
         </table>

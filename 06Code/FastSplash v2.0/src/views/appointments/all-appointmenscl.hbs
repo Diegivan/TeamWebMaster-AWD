@@ -46,6 +46,12 @@
                             <a href="/get-factura/{{_id}}" title="PDF"><i class="far fa-file-pdf"></i></a>
                         </div>
                     </td>
+                    <td>
+                        <button type="submit" class="btn-invisible" data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmation{{_id}}" title="Eliminar">
+                                <i class="far fa-trash-alt" style="color:rgb(211, 34, 34);"></i>
+                            </button>
+                    </td>
                 </tr>
                 <div class="modal fade" id="deleteConfirmation{{_id}}" tabindex="-1"
                     aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -62,7 +68,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
-                                <form action="/admin/delete-service/{{_id}}?_method=DELETE" method="POST">
+                                <form action="/appointments/delete/{{_id}}?_method=DELETE" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-danger">
                                         Eliminar

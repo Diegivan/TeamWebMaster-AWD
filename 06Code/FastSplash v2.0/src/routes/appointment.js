@@ -197,5 +197,10 @@ router.get('/get-factura/:id', async(req, res)=> {
     doc.end();
 
 })
+router.delete('/appointments/delete/:id', isAuthenticated , async(req, res) => {
+    await Appointment.findByIdAndDelete(req.params.id).lean();
+    req.flash('success_msg', 'Registro eliminado satisfactoriamente');
+    res.redirect('/historial/appointments')
+});
 
 module.exports = router;

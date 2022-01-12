@@ -28,6 +28,7 @@ app.set('view engine', '.hbs');
 /*app.use(express.json());
 app.use(clientRoutes);*/
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'mysecretapp',

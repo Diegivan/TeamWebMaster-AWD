@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Client = require('../models/client');
 const User = require('../models/user');
+const ClientController = require('../controllers/clients');
 const { isAuthenticated } = require('../helpers/auth');
 
 router.get('/admin/clients/new', isAuthenticated, (req, res) => {
@@ -307,6 +308,8 @@ router.delete('/admin/clients/delete/:id',  isAuthenticated, async (req, res) =>
     req.flash('success_msg', 'Cliente eliminado satisfactoriamente');
     res.redirect('/admin/clients');
 });
+
+router.get('/getClientsAll', isAuthenticated, ClientController.allClients)
 
 
 module.exports = router;

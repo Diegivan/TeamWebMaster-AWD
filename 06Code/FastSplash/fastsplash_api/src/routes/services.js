@@ -33,11 +33,7 @@ router.post('/admin/new-services',async(req, res) => {
         res.redirect('/admin/services')
     }
  });
-router.get('/admin/services',async(req, res) => {
-     const service = await Service.find({}).lean();
-     res.render('services/all-service',{ service });
-     
-});
+
 
 router.get('/admin/edit-services/:id',async(req, res) => {
     const service = await Service.findById(req.params.id).lean();

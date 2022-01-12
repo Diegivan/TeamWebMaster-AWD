@@ -6,11 +6,11 @@ const Client = require('../models/client');
 const User = require('../models/user');
 const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/admin/users', isAuthenticated, async (req, res) => {
+/*router.get('/admin/users', isAuthenticated, async (req, res) => {
     const user = await User.find({}).lean();
     res.render('users/all-users', { user });
 
-});
+});*/
 
 router.get('/login', (req, res) => {
     res.render('./users/login');

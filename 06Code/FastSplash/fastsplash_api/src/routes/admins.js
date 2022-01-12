@@ -120,11 +120,7 @@ router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
         res.redirect('/admin/admins')
     }
  });
-router.get('/admin/admins', isAuthenticated , async(req, res) => {
-     const admin = await Admin.find({}).lean();
-     res.render('admins/all-admin',{ admin });
-     
-});
+
 router.get('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
     const admin = await Admin.findById(req.params.id).lean();
     res.render('admins/edit-admins',{admin});

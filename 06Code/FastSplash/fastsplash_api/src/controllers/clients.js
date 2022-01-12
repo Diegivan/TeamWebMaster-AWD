@@ -13,7 +13,7 @@ const allClients = async (req, res) => {
         .lean()
         .catch((error) => res.json({ message: error}));
     
-    res.json(200, {clients, users});
+    res.status(200).json({clients, users});
 }
 
 module.exports = {allClients}

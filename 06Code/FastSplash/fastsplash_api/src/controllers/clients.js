@@ -3,8 +3,10 @@ const express = require("express");
 const Client = require('../models/client');
 const User = require('../models/user');
 
+const ClientMethods = {};
+
 // All Clients
-const allClients = async (req, res) => {
+ClientMethods.allClients = async (req, res) => {
     const clients = await Client.find({})
         .lean()
         .catch((error) => res.json({ message: error}));
@@ -16,4 +18,9 @@ const allClients = async (req, res) => {
     res.status(200).json({clients, users});
 }
 
-module.exports = {allClients}
+// Add New Client
+ClientMethods.newClient = (req, res) => {
+    res.render('clients/newClient');
+}
+
+module.exports = ClientMethods;

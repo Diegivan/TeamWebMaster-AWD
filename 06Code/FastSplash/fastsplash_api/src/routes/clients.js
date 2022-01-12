@@ -166,7 +166,6 @@ router.post('/clients/new',  isAuthenticated, async (req, res) => {
 router.get('/admin/clients',  isAuthenticated, async (req, res) => {
     const clients = await Client.find({}).lean();
     const users = await User.find({}).lean();
-    res.json(clients);
     res.render('clients/allClients', { clients, users });
 });
 

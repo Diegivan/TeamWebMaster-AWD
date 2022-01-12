@@ -1,0 +1,60 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar Cliente</h3>
+        </div>
+        <div class="card-body">
+            <form action="/clients/editClient/{{client._id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="userId" id="userId" value="{{client.userId}}">
+                <input type="hidden" name="_id" id="_id" value="{{client._id}}">
+                <input type="hidden" name="originalPassword" id="originalPassword" value="{{user.password}}">
+                <div class="form-group">
+                    <input type="text" name="firstName" id="firstName" class="form-control mb-3" title="First Name"
+                        placeholder="Nombre" value="{{client.firstName}}" autofocus>
+                    <input type="text" name="lastName" id="lastName" class="form-control mb-3" title="Last Name"
+                        placeholder="Apellido" value="{{client.lastName}}">
+                </div>
+                <div class="form-group ">
+                    <input type="text" name="ci" id="ci" class="form-control mb-3" title="CI" placeholder="Cédula" value="{{client.ci}}" disabled>
+                    <input type="email" name="email" id="email" class="form-control mb-3" title="Email"
+                        placeholder="Email" value="{{client.email}}">
+                </div>
+                <div class="form-floating">
+                    <input type="date" name="birthDate" id="dateBirth" class="form-control mb-3 form-floating"
+                        title="Date of Birth" value="{{client.birthDate}}">
+                    <label for="birthDate">Fecha de Nacimiento</label>
+                </div>
+                <hr>
+                <div class="form-group mt-2">
+                    <input type="text" name="userName" id="userName" class="form-control mb-3" title="User"
+                        placeholder="Usuario" value="{{ user.userName }}">
+                    <input type="password" name="actualPassword" id="actualPassword" class="form-control mb-3" title="Actual Password"
+                        placeholder="Contraseña Actual (Opcional para cambio)">
+                    <input type="password" name="password" id="password" class="form-control mb-3" title="Password"
+                        placeholder="Contraseña" disabled>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control mb-3"
+                        title="Confirm Password" placeholder="Confirmar Contraseña" disabled>
+                    <input type="hidden" name="rol" id="rol" value="1">
+                </div>
+                <div class="form-group d-grid">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../../js/validations.js"></script>
+<script>
+    document.getElementById("actualPassword").addEventListener("input", function(){
+        if(this.value != ""){
+            document.getElementById("password").disabled = false;
+            document.getElementById("confirmPassword").disabled = false;
+        } else {
+            document.getElementById("password").disabled = true;
+            document.getElementById("confirmPassword").disabled = true;
+        }
+    })
+</script>

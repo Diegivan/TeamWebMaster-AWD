@@ -1,0 +1,44 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h5>Registrate es gratis!!</h5>
+        </div>
+        <div class="card-body">
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <input type="text" name="firstName" id="firstName" class="form-control mb-3" title="First Name"
+                        placeholder="Nombre" value="{{firstName}}" autofocus>
+                    <input type="text" name="lastName" id="lastName" class="form-control mb-3" title="Last Name"
+                        placeholder="Apellido" value="{{lastName}}">
+                </div>
+                <div class="form-group ">
+                    <input type="text" name="ci" id="ci" class="form-control mb-3" title="CI" placeholder="Cédula"
+                        value="{{ci}}">
+                    <input type="email" name="email" id="email" class="form-control mb-3" title="Email"
+                        placeholder="Email" value="{{email}}">
+                </div>
+                <div class="form-floating">
+                    <input type="date" name="birthDate" id="dateBirth" class="form-control mb-3 form-floating"
+                        title="Date of Birth" value="{{birthDate}}">
+                    <label for="birthDate">Fecha de Nacimiento</label>
+                </div>
+                <hr>
+                <div class="form-group mt-2">
+                    <input type="text" name="userName" id="userName" class="form-control mb-3" title="User"
+                        placeholder="Usuario" value="{{userName}}">
+                    <input type="password" name="password" id="password" class="form-control mb-3" title="Password"
+                        placeholder="Contraseña" value="{{password}}">
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control mb-3"
+                        title="Confirm Password" placeholder="Confirmar Contraseña" value="{{confirmPassword}}">
+                    <input type="hidden" name="rol" id="rol" value="1">
+                </div>
+                <div class="form-group d-grid">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Registrase
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../js/validations.js"></script>

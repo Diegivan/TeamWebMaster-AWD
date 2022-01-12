@@ -1,0 +1,87 @@
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/each}}
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Solicitar nueva cita</h3>
+        </div>
+        <div class="card-body">
+            <form action="/appointment" method="POST">
+            <div class="form-group">
+             <input type="text" name="Name" class="form-control" value={{user.userName}} hidden >
+
+
+            </div>
+            <br>
+                <div class="form-group">
+                    <input type="text" name="Adress" class="form-control" placeholder="Ingrese su direccion" autofocus>
+                </div>
+                <br >
+                <div class="form-group">
+                    <input type="text" name="Reference" class="form-control" placeholder="Ingrese una referencia de su domicilio" autofocus>
+                </div>
+                <br >
+                <div class="form-group">
+                    <input type="date" name="Date" class="form-control" placeholder="Ingrese su fecha de cita" autofocus>
+                </div>
+                <br >
+                <div class="form-group">
+                    <input type="text" name="Plate" class="form-control" placeholder="Ingrese su Placa" autofocus>
+                </div>
+                <br >
+                <div class="form-group">
+                    <label for="cars">Choose a model of your car:</label>
+
+<select name="cars" id="cars">
+  <option value="Chevrolet">Chevrolet</option>
+  <option value="Kia">Kia</option>
+  <option value="Hyundai">Hyundai</option>
+  <option value="Haval">Haval</option>
+    <option value="Toyota">Toyota</option>
+
+</select>
+                </div>
+                <br >
+ <div class="form-group">
+                    <label for="service">Choose a service:</label>
+
+<select name="services" id="services">
+    {{#each services}}
+    <option value='{{_id}}'>{{name}} - ${{price}}  </option>
+{{/each}}
+</select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="hours">Choose a horary:</label>
+
+<select name="hours" id="hours">
+  <option value="8:30-9:30">8:30-9:30</option>
+  <option value="10:30-11:30">10:30-11:30</option>
+  <option value="12:30-13:30">12:30-13:30</option>
+  <option value="14:30-15:30">14:30-15:30</option>
+    <option value="16:30-17:30">16:30-17:30</option>
+
+</select>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="status" class="form-control" placeholder="Ingrese status" autofocus value="0" hidden>
+                </div>
+                <hr>
+                <br>
+                <div class="form-group">
+                    <input type="text" name="Obs" class="form-control" placeholder="Ingrese observacion de su vehiculo" autofocus>
+                </div>
+                
+                <p></p>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

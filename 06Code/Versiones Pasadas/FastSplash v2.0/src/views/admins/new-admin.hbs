@@ -1,0 +1,37 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Nuevo administrador</h3>
+        </div>
+        <div class="card-body">
+            <form action="/admin/new-admin" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" autofocus>
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <input type="text" name="lastname" class="form-control" placeholder="Ingrese apellido" autofocus>
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <input type="text" name="CI" class="form-control" placeholder="Ingrese cedula" autofocus>
+                </div>
+                <hr>
+                <div class="form-group mt-2">
+                    <input type="text" name="userName" id="userName" class="form-control mb-3" title="User"
+                        placeholder="Usuario">
+                    <input type="password" name="password" id="password" class="form-control mb-3" title="Password"
+                        placeholder="Contraseña">
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control mb-3"
+                        title="Confirm Password" placeholder="Confirmar Contraseña">
+                    <input type="hidden" name="rol" id="rol" value="2">
+                </div>
+                
+                <p></p>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

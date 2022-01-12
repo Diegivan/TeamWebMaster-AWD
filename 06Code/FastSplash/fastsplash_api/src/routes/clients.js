@@ -164,12 +164,6 @@ router.post('/clients/new',  isAuthenticated, async (req, res) => {
     };
 });
 
-router.get('/admin/clients',  isAuthenticated, async (req, res) => {
-    const clients = await Client.find({}).lean();
-    const users = await User.find({}).lean();
-    res.render('clients/allClients', { clients, users });
-});
-
 router.get('/admin/clients/edit/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
     const user = await User.findById(client.userId).lean();
@@ -308,8 +302,5 @@ router.delete('/admin/clients/delete/:id',  isAuthenticated, async (req, res) =>
     req.flash('success_msg', 'Cliente eliminado satisfactoriamente');
     res.redirect('/admin/clients');
 });
-
-router.get('/getClientsAll', isAuthenticated, ClientController.allClients)
-
 
 module.exports = router;

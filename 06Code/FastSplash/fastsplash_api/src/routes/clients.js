@@ -164,12 +164,12 @@ router.post('/clients/new',  isAuthenticated, async (req, res) => {
     };
 });
 
-router.get('/admin/clients/edit/:id',  isAuthenticated, async (req, res) => {
+/*router.get('/admin/clients/edit/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
     const user = await User.findById(client.userId).lean();
     console.log(client);
     res.render('clients/editClient', { client, user });
-});
+});*/
 
 router.put('/clients/editClient/:id',  isAuthenticated, async (req, res) => {
     const { _id, firstName, lastName, ci, email, birthDate, userId, userName, actualPassword, password, confirmPassword, rol } = req.body;

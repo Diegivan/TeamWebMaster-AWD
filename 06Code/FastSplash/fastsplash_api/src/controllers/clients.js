@@ -18,9 +18,22 @@ ClientMethods.allClients = async (req, res) => {
     res.status(200).json({clients, users});
 }
 
-// Add New Client
+// Add New (No vale)
 ClientMethods.newClient = (req, res) => {
     res.render('clients/newClient');
+}
+
+// Get Client
+ClientMethods.getClient = async (req, res) => {
+    const client = await Client.findById(req.params.id)
+        .lean()
+        .catch((error) => res.json({ message: error}));
+
+    const user = await User.findById(client.userId)
+        .lean()
+        .catch((error) => res.json({ message: error}));
+
+    res.status(200).json({client, user});
 }
 
 module.exports = ClientMethods;

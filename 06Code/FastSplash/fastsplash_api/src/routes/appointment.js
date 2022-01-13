@@ -12,10 +12,10 @@ const { ClientRequest } = require('http');
 
 
 
-router.get('/appointment', async(req, res)=> {
+/*router.get('/appointment', async(req, res)=> {
     const services = await Service.find({}).lean();
     res.render('appointments/new-appointments', {services});
-})
+})*/
 
 router.get('/index', (req, res)=> {
    res.render('index');
@@ -75,7 +75,7 @@ router.post('/appointment',async(req, res) => {
     }
  });
 
- router.get('/historial/appointments',async(req, res) => {
+ /*router.get('/historial/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();
     const data = appointment;
     var dataReports = [];
@@ -88,7 +88,7 @@ router.post('/appointment',async(req, res) => {
     }
     
     res.render('appointments/all-appointmenscl',{ dataReports });
-});
+});*/
 
 router.get('/admin/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();

@@ -11,7 +11,9 @@ const ClientController = require('../controllers/clients');
 const AdminController = require('../controllers/admins');
 const ServiceController = require('../controllers/services');
 const UserController = require('../controllers/user');
-const { isAuthenticated } = require('../helpers/auth');
+const AppointmentController = require('../controllers/appointments');
+
+const { isAuthenticated, isAuthenticatedUser } = require('../helpers/auth');
 
 //Client Uris
 router.get('/admin/clients', isAuthenticated, ClientController.allClients)
@@ -26,4 +28,9 @@ router.get('/admin/services',isAuthenticated, ServiceController.allServices);
 
 //User Uris
 router.get('/admin/users',isAuthenticated, UserController.allUsers);
+
+// Appointment Uris
+router.get('/appointment', AppointmentController.allAppointments);
+router.get('/historial/appointments', isAuthenticatedUser, AppointmentController.historyAppointments);
+
 module.exports = router;

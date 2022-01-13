@@ -5,9 +5,12 @@ const Client = require('../models/client');
 const User = require('../models/user');
 const Admin = require('../models/Admins');
 const Service = require('../models/Services');
+
+
 const ClientController = require('../controllers/clients');
 const AdminController = require('../controllers/admins');
-const ServiceController = require('../controllers/services')
+const ServiceController = require('../controllers/services');
+const UserController = require('../controllers/user');
 const { isAuthenticated } = require('../helpers/auth');
 
 //Client Uris
@@ -22,5 +25,5 @@ router.get('/admin/admins', isAuthenticated, AdminController.allAdmins)
 router.get('/admin/services',isAuthenticated, ServiceController.allServices);
 
 //User Uris
-
+router.get('/admin/users',isAuthenticated, UserController.allUsers);
 module.exports = router;

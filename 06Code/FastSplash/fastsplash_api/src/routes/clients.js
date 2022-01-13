@@ -11,7 +11,7 @@ router.get('/admin/clients/new', isAuthenticated, (req, res) => {
     res.render('clients/newClient');
 });
 
-router.post('/clients/new',  isAuthenticated, async (req, res) => {
+/*router.post('/clients/new',  isAuthenticated, async (req, res) => {
     const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
     const errors = [];
     if (!firstName) {
@@ -162,7 +162,7 @@ router.post('/clients/new',  isAuthenticated, async (req, res) => {
             res.redirect('/admin/clients');
         }
     };
-});
+});*/
 
 /*router.get('/admin/clients/edit/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
@@ -171,7 +171,7 @@ router.post('/clients/new',  isAuthenticated, async (req, res) => {
     res.render('clients/editClient', { client, user });
 });*/
 
-router.put('/clients/editClient/:id',  isAuthenticated, async (req, res) => {
+/*router.put('/clients/editClient/:id',  isAuthenticated, async (req, res) => {
     const { _id, firstName, lastName, ci, email, birthDate, userId, userName, actualPassword, password, confirmPassword, rol } = req.body;
     const user = await User.findById(userId).lean();
     console.log(user);
@@ -293,14 +293,14 @@ router.put('/clients/editClient/:id',  isAuthenticated, async (req, res) => {
             res.redirect('/admin/clients');
         }
     };
-});
+});*/
 
-router.delete('/admin/clients/delete/:id',  isAuthenticated, async (req, res) => {
+/*router.delete('/admin/clients/delete/:id',  isAuthenticated, async (req, res) => {
     const client = await Client.findById(req.params.id).lean();
     await Client.findByIdAndDelete(req.params.id).lean();
     await User.findByIdAndDelete(client.userId).lean();
     req.flash('success_msg', 'Cliente eliminado satisfactoriamente');
     res.redirect('/admin/clients');
-});
+});*/
 
 module.exports = router;

@@ -16,18 +16,18 @@ router.get('/login', (req, res) => {
     res.render('./users/login');
 });
 
-router.post('/login', passport.authenticate('local', {
+/*router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
-}));
+}));*/
 
 router.get('/register', (req, res) => {
     res.render('./users/register');
 });
 
 // To recibe data
-router.post('/register', async (req, res) => {
+/*router.post('/register', async (req, res) => {
     const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
     const errors = [];
     if (!firstName) {
@@ -183,11 +183,11 @@ router.post('/register', async (req, res) => {
             res.render('users/login', { userName, password });
         }
     };
-});
+});*/
 
-router.get('/logout', (req, res) => {
+/*router.get('/logout', (req, res) => {
     req.logOut();
     res.redirect('/');
-});
+});*/
 
 module.exports = router;

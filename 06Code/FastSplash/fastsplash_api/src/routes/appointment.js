@@ -21,7 +21,7 @@ router.get('/index', (req, res)=> {
    res.render('index');
 })
 
-router.post('/appointment',async(req, res) => {
+/*router.post('/appointment',async(req, res) => {
     const {Name, Adress, Reference, Date, Plate, cars, services, hours, status, Obs }=req.body;
     const errors = [];
     if(!Adress){
@@ -73,7 +73,7 @@ router.post('/appointment',async(req, res) => {
         req.flash('success_msg', 'Cita creada satisfactoriamente');
         res.redirect('/index')
     }
- });
+ });*/
 
  /*router.get('/historial/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();
@@ -90,24 +90,25 @@ router.post('/appointment',async(req, res) => {
     res.render('appointments/all-appointmenscl',{ dataReports });
 });*/
 
-router.get('/admin/appointments',async(req, res) => {
+/*router.get('/admin/appointments',async(req, res) => {
     const appointment = await Appointment.find({}).lean();
     res.render('appointments/all-appointment',{ appointment });
-});
+});*/
 
-router.get('/admin/edit-appointments/:id',async(req, res) => {
+/*router.get('/admin/edit-appointments/:id',async(req, res) => {
     const appointment = await Appointment.findById(req.params.id).lean();
     res.render('appointments/edit-appointment',{ appointment });
     
-});
-router.put('/appointments/edit-appointment/:id',async(req, res) => {
+});*/
+
+/*router.put('/appointments/edit-appointment/:id',async(req, res) => {
     const {Name, Plate, status}=req.body;
     await Appointment.findByIdAndUpdate(req.params.id,{Name, Plate, status}).lean();
     req.flash('success_msg', 'Cita modificado satisfactoriamente');
     res.redirect('/admin/appointments')
-});
+});*/
 
-router.get('/get-factura/:id', async(req, res)=> {
+/*router.get('/get-factura/:id', async(req, res)=> {
     
     const appointment = await Appointment.findById(req.params.id).lean();
     const service = await Service.findById(req.params.id).lean();
@@ -196,11 +197,12 @@ router.get('/get-factura/:id', async(req, res)=> {
 
     doc.end();
 
-})
-router.delete('/appointments/delete/:id', isAuthenticated , async(req, res) => {
+})*/
+
+/*router.delete('/appointments/delete/:id', isAuthenticated , async(req, res) => {
     await Appointment.findByIdAndDelete(req.params.id).lean();
     req.flash('success_msg', 'Registro eliminado satisfactoriamente');
     res.redirect('/historial/appointments')
-});
+});*/
 
 module.exports = router;

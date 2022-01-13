@@ -36,4 +36,59 @@ ClientMethods.getClient = async (req, res) => {
     res.status(200).json({client, user});
 }
 
+// Add Client
+ClientMethods.addClient = async (req, res) => {
+    const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
+    const newUser = new User({ userName, password, rol });
+    newUser.password = await newUser.encryptPassword(password);
+    await newUser.save()
+        .catch((error) => res.json({ message: error }));
+
+    const { _id } = newUser;
+    const newClient = new Client({ firstName, lastName, ci, email, birthDate, userId: _id });
+    await newClient.save()
+        .catch((error) => res.json({ message: error }));
+
+    res.status(200).json({newUser, newClient});
+}
+
+ClientMethods.editClient = async (req, res) => {
+    const { _id, firstName, lastName, ci, email, birthDate, userId, userName, actualPassword, password, confirmPassword, rol } = req.body;
+    const user = await User.findById(userId)
+        .lean()
+        .catch((error) => res.json({ message: error }));
+    if(!actualPassword){
+        var newUser = new User({ userName, password: user.password, rol });
+        await User.findByIdAndUpdate(userId, {userName, password: newUser.password, rol})
+            .lean()
+            .catch((error) => res.json({ message: error }));
+    } else {
+        var newUser = new User({ userName, password, rol });
+        newUser.password = await newUser.encryptPassword(password);
+        await User.findByIdAndUpdate(userId, {userName, password: newUser.password, rol})
+            .lean()
+            .catch((error) => res.json({ message: error }));
+    }
+    const newClient = new Client({ firstName, lastName, ci, email, birthDate, userId: _id });
+    await Client.findByIdAndUpdate(req.params.id, { firstName, lastName, ci, email, birthDate, userId })
+        .lean()
+        .catch((error) => res.json({ message: error }));
+    
+    res.status(200).json({newUser, newClient});
+}
+
+ClientMethods.deleteClient = async (req, res) => {
+    const client = await Client.findById(req.params.id)
+        .lean()
+        .catch((error) => res.json({ message: error }));
+    await Client.findByIdAndDelete(req.params.id)
+        .lean()
+        .catch((error) => res.json({ message: error }));
+    await User.findByIdAndDelete(client.userId)
+        .lean()
+        .catch((error) => res.json({ message: error }));
+
+    res.status(200).json({message: "Eliminado Correctamente"});
+}
+
 module.exports = ClientMethods;

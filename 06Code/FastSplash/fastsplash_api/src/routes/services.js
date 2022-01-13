@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/Services');
-router.get('/admin/services/add-service',(req, res) => {
+/*router.get('/admin/services/add-service',(req, res) => {
     res.render('services/new-service');
-});
-router.post('/admin/new-services',async(req, res) => {
+});*/
+/*router.post('/admin/new-services',async(req, res) => {
     const { name, description, price}=req.body;
     const errors = [];
     if(!name){
@@ -33,8 +33,8 @@ router.post('/admin/new-services',async(req, res) => {
         res.redirect('/admin/services')
     }
  });
-
-
+*/
+/*
 router.get('/admin/edit-services/:id',async(req, res) => {
     const service = await Service.findById(req.params.id).lean();
     res.render('services/edit-service',{ service });
@@ -50,5 +50,5 @@ router.delete('/admin/delete-service/:id',async(req, res) => {
     await Service.findByIdAndDelete(req.params.id).lean();
     req.flash('success_msg', 'Servicio eliminado satisfactoriamente');
     res.redirect('/admin/services')
-});
+});*/
 module.exports = router;

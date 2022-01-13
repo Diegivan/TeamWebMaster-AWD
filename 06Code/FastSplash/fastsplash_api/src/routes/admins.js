@@ -5,12 +5,12 @@ const Service = require('../models/Services');
 const Appointment = require('../models/Appointments');
 const User = require('../models/user');
 const { isAuthenticated } = require('../helpers/auth');
-
-router.get('/admin/add', isAuthenticated , (req, res) => {
+//ojito esto quitaran cuando ya hagan las vistas en react y las direcciones
+/*router.get('/admin/add', isAuthenticated , (req, res) => {
     res.render('admins/new-admin');
-});
+});*/
 
-router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
+/*router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
     const { name, lastname, CI, userName, password, confirmPassword, rol}=req.body;
     const errors = [];
 
@@ -120,8 +120,8 @@ router.post('/admin/new-admin', isAuthenticated , async(req, res) => {
         res.redirect('/admin/admins')
     }
  });
-
-router.get('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
+*/
+/*router.get('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
     const admin = await Admin.findById(req.params.id).lean();
     res.render('admins/edit-admins',{admin});
     
@@ -131,13 +131,14 @@ router.put('/admin/edit-admins/:id', isAuthenticated , async(req, res) => {
     await Admin.findByIdAndUpdate(req.params.id,{name, lastname, CI}).lean();
     req.flash('success_msg', 'Administrador editado satisfactoriamente');
     res.redirect('/admin/admins')
-});
+});*/
+/*
 router.delete('/admin/delete/:id', isAuthenticated , async(req, res) => {
     await Admin.findByIdAndDelete(req.params.id).lean();
     req.flash('success_msg', 'Administrador eliminado satisfactoriamente');
     res.redirect('/admin/admins')
 });
-
+*/
 
 
 module.exports = router;

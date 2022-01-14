@@ -13,6 +13,7 @@ const UserController = require('../controllers/user');
 
 const AppointmentController = require('../controllers/appointments');
 const { isAuthenticated, isAuthenticatedUser } = require('../helpers/auth');
+const { loginAuthenticate } = require("../controllers/user");
 
 //Client Uris
 router.get('/admin/clients', isAuthenticated, ClientController.allClients)
@@ -38,7 +39,6 @@ router.delete('/admin/delete-service/:id', isAuthenticated, ServiceController.de
 
 //User Uris
 router.get('/admin/users',isAuthenticated, UserController.allUsers);
-module.exports = router;
 
 // Appointment Uris
 router.get('/appointment', AppointmentController.allAppointments);
@@ -52,6 +52,7 @@ router.delete('/appointments/delete/:id', isAuthenticated, AppointmentController
 
 // Login
 router.post('/login', UserController.login);
+router.post('/logina', UserController.loginAuthenticate);
 
 // Register
 router.post('/register', UserController.register);

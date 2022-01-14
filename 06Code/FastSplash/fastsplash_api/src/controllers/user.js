@@ -18,6 +18,21 @@ UserMethods.login = passport.authenticate('local', {
     failureFlash: true
 })
 
+UserMethods.loginAuthenticate = async (req, res) => {
+    const user = await User.findOne({ userName: req.body.userName }).lean();
+    if(user){
+        const newUser = new User({ userName: user.userName, password: user.password, rol: user.rol });
+        const match = await newUser.comparePassword(req.body.password, user.password);
+        if (match) {
+            res.status(200).json({actualUser: newUser});
+        } else {
+            res.status(400).json({error: "Contraseña Incorrecta"});
+        }
+    } else {
+        res.status(400).json({error: "No se encontró al usuario"});
+    }
+}
+
 // Register 
 UserMethods.register = async (req, res) => {
     const { firstName, lastName, ci, email, birthDate, userName, password, confirmPassword, rol } = req.body;
@@ -37,7 +52,7 @@ UserMethods.register = async (req, res) => {
 // Logout
 UserMethods.logout = (req, res) => {
     req.logOut();
-    res.status(200).json({message: "Logout exitoso"});
+    res.status(200).json({ message: "Logout exitoso" });
 }
 
 module.exports = UserMethods;

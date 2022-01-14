@@ -6,6 +6,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport')
+const cors = require('cors')
 
 // Initializations
 const app = express();
@@ -38,6 +39,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors())
 
 // Global Variables
 app.use((req, res, next) => {

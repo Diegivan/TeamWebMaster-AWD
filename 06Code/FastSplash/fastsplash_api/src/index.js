@@ -51,12 +51,6 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use(require("./routes/clients"));
-app.use(require("./routes/users"));
-app.use(require("./routes/index"));
-app.use(require('./routes/admins'));
-app.use(require('./routes/services'));
-app.use(require('./routes/appointment'));
 app.use(require('./routes/uris'));
 
 

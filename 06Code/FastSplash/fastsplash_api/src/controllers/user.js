@@ -13,11 +13,10 @@ UserMethods.allUsers = async (req, res) => {
 }
 
 // Login
-UserMethods.login = passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-})
+UserMethods.login = passport.authenticate('local'),
+function(req, res) {
+  res.status(200).json({message: "Logeado correctamente"});
+};
 
 UserMethods.loginAuthenticate = async (req, res) => {
     const user = await User.findOne({ userName: req.body.userName }).lean();

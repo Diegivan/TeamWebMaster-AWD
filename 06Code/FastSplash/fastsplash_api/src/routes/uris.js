@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require('passport');
 
 const Client = require('../models/client');
 const User = require('../models/user');
@@ -17,7 +18,6 @@ const { loginAuthenticate } = require("../controllers/user");
 
 //Client Uris
 router.get('/admin/clients', isAuthenticated, ClientController.allClients)
-//router.get('/admin/clients/new', isAuthenticated, ClientController.newClient); Esta no xd
 router.get('/admin/clients/edit/:id', isAuthenticated, ClientController.getClient);
 router.post('/clients/new',  isAuthenticated, ClientController.addClient);
 router.put('/clients/editClient/:id',  isAuthenticated, ClientController.editClient);
@@ -51,7 +51,10 @@ router.put('/appointments/edit-appointment/:id', AppointmentController.editAppoi
 router.delete('/appointments/delete/:id', isAuthenticated, AppointmentController.deleteAppointment);
 
 // Login
-router.post('/login', UserController.login);
+router.post('/login', passport.authenticate('local'),
+function(req, res) {
+  res.status(200).json({message: "Logeado correctamente"});
+});
 router.post('/login/auth', UserController.loginAuthenticate);
 
 // Register

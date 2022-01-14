@@ -52,7 +52,7 @@ router.delete('/appointments/delete/:id', isAuthenticated, AppointmentController
 
 // Login
 router.post('/login', UserController.login);
-router.post('/logina', UserController.loginAuthenticate);
+router.post('/login/auth', UserController.loginAuthenticate);
 
 // Register
 router.post('/register', UserController.register);

@@ -114,11 +114,16 @@ AppointmentMethods.getBill = async(req, res)=> {
         width: 420,
         align: 'left'
     });
+    
     doc.text(`Hora: ${appointment.hours} `, {
         width: 420,
         align: 'left'
     });
     doc.text(`Observacion: ${appointment.Obs} `, {
+        width: 420,
+        align: 'left'
+    });
+    doc.text(`Precio: ${appointment.services.price} `, {
         width: 420,
         align: 'left'
     });
@@ -130,7 +135,7 @@ AppointmentMethods.getBill = async(req, res)=> {
         {key: 'Servicio', label: 'Servicio', align:'left'},
         {key: 'Hora', label: 'Hora', align:'left'},
         {key: 'Observacion', label: 'Observacion', align:'left'},
-
+        {key: 'Precio', label: 'Precio', align:'left'}
     ], citas, {
         
             border: null,

@@ -1,7 +1,9 @@
+const { parse } = require("dotenv");
 const express = require("express");
 
 const Service = require('../models/Services');
 const ServiceMethods = {};
+const IVA=12;
 // All admins
 ServiceMethods.allServices = async (req, res) => {
     const service = await Service.find({})
@@ -11,8 +13,16 @@ ServiceMethods.allServices = async (req, res) => {
 }
 //newService
 ServiceMethods.newServices = async (req, res) => {
-    const { name, description, price}=req.body;
-    const NewServices = new Service({ name, description, price});
+    var { name, description, price, discount}=req.body;
+    price=parseFloat(price);
+    console.log(price);
+    if(4<=price)
+    {
+       price=price+(price*(IVA/100));
+
+       console.log(price);
+    }
+    const NewServices = new Service({ name, description, price, discount});
     await NewServices.save()
     res.status(200).json({NewServices}); 
 }
@@ -25,8 +35,13 @@ ServiceMethods.editServiceRender = async (req, res) => {
     
 }
 ServiceMethods.editService = async (req, res) => {
-    const { name, description, price }=req.body;
-    await Service.findByIdAndUpdate(req.params.id,{name, description, price})
+    var { name, description, price, discount }=req.body;
+    price=parseFloat(price);
+    if(4<=price)
+    {
+       price=price+(price*(IVA/100));
+    }
+    await Service.findByIdAndUpdate(req.params.id,{name, description, price, discount})
     .lean()
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error}));

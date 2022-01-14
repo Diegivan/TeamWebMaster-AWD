@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/Services');
+const IVA=12;
 router.get('/admin/services/add-service',(req, res) => {
     res.render('services/new-service');
 });
 router.post('/admin/new-services',async(req, res) => {
-    const { name, description, price}=req.body;
+    var { name, description, price, discount}=req.body;
     const errors = [];
     if(!name){
         
@@ -27,7 +28,16 @@ router.post('/admin/new-services',async(req, res) => {
         })
     }
     else{
-        const NewServices = new Service({ name, description, price});
+    price=parseFloat(price);
+    console.log(price);
+    if(4<=price)
+    {
+       price=price+(price*(IVA/100));
+
+       console.log(price);
+    }
+    price=price-(price*(discount/100));
+        const NewServices = new Service({ name, description, price, discount});
         await NewServices.save();
         req.flash('success_msg', 'Servicio agregado satisfactoriamente');
         res.redirect('/admin/services')
@@ -45,7 +55,7 @@ router.get('/admin/edit-services/:id',async(req, res) => {
     
 });
 router.put('/services/edit-service/:id',async(req, res) => {
-    const { name, description, price}=req.body;
+    var { name, description, price, discount}=req.body;
     await Service.findByIdAndUpdate(req.params.id,{name, description, price}).lean();
     req.flash('success_msg', 'Servicio modificado satisfactoriamente');
     res.redirect('/admin/services')

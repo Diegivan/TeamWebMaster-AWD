@@ -17,7 +17,8 @@ const {  isAuthenticatedUser } = require('../helpers/auth');
 const { loginAuthenticate } = require("../controllers/user");
 
 //Client Uris
-router.get('/admin/clients', ClientController.allClients)
+router.get('/admin/clients', ClientController.allClients);
+router.get('/admin/clients/:id', ClientController.getClient);
 router.get('/admin/clients/edit/:id', ClientController.getClient);
 router.post('/clients/new',  ClientController.addClient);
 router.put('/clients/editClient/:id',  ClientController.editClient);
@@ -25,6 +26,7 @@ router.delete('/admin/clients/delete/:id', ClientController.deleteClient);
 
 //Admin Uris
 router.get('/admin/admins',  AdminController.allAdmins);
+router.get('/admin/admins/:id', AdminController.getAdmin);
 router.post('/admin/new-admin',  AdminController.addAdmins);
 router.get('/admin/edit-admins/:id',  AdminController.editAdminsRender);
 router.put('/admin/edit-admins/:id', AdminController.editAdmin);

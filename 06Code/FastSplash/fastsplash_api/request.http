@@ -30,3 +30,9 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8085/clients/61bea91946007b30af2a8dd9 HTTP/1.1
+
+###
+GET http://localhost:8085/admin/clients/61ce18d4d698d6f9d62aedd2 HTTP/1.1 
+
+###
+GET http://localhost:8085/admin/admins/61df73a6c6af14c09f704e7f HTTP/1.1

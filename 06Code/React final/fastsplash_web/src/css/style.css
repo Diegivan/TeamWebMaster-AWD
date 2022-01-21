@@ -1,0 +1,26 @@
+.backgroundConteiner{
+    background-color: #2F4216;
+}
+.textField{
+  height: 32px;
+    width: 200px;
+    border: 1px solid #e5e5e5;
+    padding: 0 32px 0 16px;
+}
+
+.textField:hover {
+  cursor: pointer;
+}
+
+.btnBuscar{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: white;
+}
+
+.barraBusqueda{
+  float: right;
+  padding: 20px;
+}

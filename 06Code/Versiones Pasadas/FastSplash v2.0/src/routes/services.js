@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Service = require('../models/Services');
 const IVA=12;
-router.get('/admin/services/add-service',(req, res) => {
+router.get('/admin/services/add-service',isAuthenticated , (req, res) => {
     res.render('services/new-service');
 });
-router.post('/admin/new-services',async(req, res) => {
+router.post('/admin/new-services',isAuthenticated , async(req, res) => {
     var { name, description, price, discount}=req.body;
     const errors = [];
     if(!name){
@@ -43,24 +43,24 @@ router.post('/admin/new-services',async(req, res) => {
         res.redirect('/admin/services')
     }
  });
-router.get('/admin/services',async(req, res) => {
+router.get('/admin/services',isAuthenticated , async(req, res) => {
      const service = await Service.find({}).lean();
      res.render('services/all-service',{ service });
      
 });
 
-router.get('/admin/edit-services/:id',async(req, res) => {
+router.get('/admin/edit-services/:id',isAuthenticated , async(req, res) => {
     const service = await Service.findById(req.params.id).lean();
     res.render('services/edit-service',{ service });
     
 });
-router.put('/services/edit-service/:id',async(req, res) => {
+router.put('/services/edit-service/:id',isAuthenticated , async(req, res) => {
     var { name, description, price, discount}=req.body;
     await Service.findByIdAndUpdate(req.params.id,{name, description, price}).lean();
     req.flash('success_msg', 'Servicio modificado satisfactoriamente');
     res.redirect('/admin/services')
 });
-router.delete('/admin/delete-service/:id',async(req, res) => {
+router.delete('/admin/delete-service/:id',isAuthenticated , async(req, res) => {
     await Service.findByIdAndDelete(req.params.id).lean();
     req.flash('success_msg', 'Servicio eliminado satisfactoriamente');
     res.redirect('/admin/services')

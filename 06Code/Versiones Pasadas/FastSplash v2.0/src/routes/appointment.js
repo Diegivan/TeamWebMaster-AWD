@@ -12,7 +12,7 @@ const { ClientRequest } = require('http');
 
 
 
-router.get('/appointment', async(req, res)=> {
+router.get('/appointment', isAuthenticated , async(req, res)=> {
     const services = await Service.find({}).lean();
     res.render('appointments/new-appointments', {services});
 })
@@ -21,7 +21,7 @@ router.get('/index', (req, res)=> {
    res.render('index');
 })
 
-router.post('/appointment',async(req, res) => {
+router.post('/appointment',isAuthenticated , async(req, res) => {
     const {Name, Adress, Reference, Date, Plate, cars, services, hours, status, Obs }=req.body;
     const errors = [];
     if(!Adress){
@@ -75,7 +75,7 @@ router.post('/appointment',async(req, res) => {
     }
  });
 
- router.get('/historial/appointments',async(req, res) => {
+ router.get('/historial/appointments',isAuthenticated , async(req, res) => {
     const appointment = await Appointment.find({}).lean();
     const data = appointment;
     var dataReports = [];
@@ -95,19 +95,19 @@ router.get('/admin/appointments',async(req, res) => {
     res.render('appointments/all-appointment',{ appointment });
 });
 
-router.get('/admin/edit-appointments/:id',async(req, res) => {
+router.get('/admin/edit-appointments/:id',isAuthenticated , async(req, res) => {
     const appointment = await Appointment.findById(req.params.id).lean();
     res.render('appointments/edit-appointment',{ appointment });
     
 });
-router.put('/appointments/edit-appointment/:id',async(req, res) => {
+router.put('/appointments/edit-appointment/:id',isAuthenticated , async(req, res) => {
     const {Name, Plate, status}=req.body;
     await Appointment.findByIdAndUpdate(req.params.id,{Name, Plate, status}).lean();
     req.flash('success_msg', 'Cita modificado satisfactoriamente');
     res.redirect('/admin/appointments')
 });
 
-router.get('/get-factura/:id', async(req, res)=> {
+router.get('/get-factura/:id', isAuthenticated , async(req, res)=> {
     
     const appointment = await Appointment.findById(req.params.id).lean();
     const service = await Service.findById(req.params.id).lean();

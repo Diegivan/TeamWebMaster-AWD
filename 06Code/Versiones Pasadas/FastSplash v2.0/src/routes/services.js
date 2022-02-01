@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/Services');
+const { isAuthenticated } = require('../helpers/auth');
 const IVA=12;
 router.get('/admin/services/add-service',isAuthenticated , (req, res) => {
     res.render('services/new-service');

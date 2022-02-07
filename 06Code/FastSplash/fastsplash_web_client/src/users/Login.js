@@ -26,7 +26,7 @@ const Login = () => {
                     password: password
                 })
                 .then(res => {
-                    navigate('/');
+                    window.location.href = 'http://localhost:3000/';
                 })
                 .catch(err => {
                     setLoading(false)

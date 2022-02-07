@@ -9,7 +9,7 @@ const passport = require('passport')
 
 // Initializations
 const app = express();
-const port = process.env.PORT || 8085;
+const port = process.env.PORT || 8086;
 require('./database');
 require('./config/passport');
 

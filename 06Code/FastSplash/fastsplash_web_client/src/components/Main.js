@@ -1,6 +1,6 @@
-import axios from './url/axios';
+import axios from '../url/axios';
 import React, { useState } from 'react'
-
+import principal from '../public/img/principal.jpg';
 const Main = () => {
 
     return (
@@ -10,7 +10,7 @@ const Main = () => {
                 <p class="lead">Donde lavar tu carro pasa en un Splash!</p>
                 <hr class="my-4"/>
                     <div class="row jumbotron">
-                        <img src="/public/img/principal.jpg" width="100%" alt="Car Wash"/>
+                        <img src={principal} width="100%" alt="Car Wash"/>
                     </div>
             </div>
             <div class="row">
@@ -145,7 +145,11 @@ const Main = () => {
                     </div>
                 </div>
             </div>
+            <div class="container">
+          
+</div>
         </div>
+          
     )
 }
 

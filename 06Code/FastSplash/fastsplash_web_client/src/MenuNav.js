@@ -1,49 +1,53 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 const MenuNav = () => {
+    const {userName} = JSON.parse(localStorage.getItem('actualUser'));
     return (
+       
         <div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <div class="container-fluid container">
-            <div class="navbar-brand logo" href="/">
-                <img src="/img/isotipo.svg" alt="isotipo" width="43%"/>
-                <img src="/img/logo-fastsplash.svg" alt="logo" width="57%"/>
+        <nav classname="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+          <div classname="container-fluid container">
+            <div classname="navbar-brand logo" href="/">
+              <img src="/img/isotipo.svg" alt="isotipo" width="43%" />
+              <img src="/img/logo-fastsplash.svg" alt="logo" width="57%" />
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button classname="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon" />
             </button>
-            <div class="collapse navbar-collapse  justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div class="nav-link active" aria-current="page">Inicio</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link">Servicios</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link">Promociones</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link">Acerca de</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link">Contáctanos</div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto" id="navbarSupportedContent">
-                    <li class="nav-item">
-                        <div class="nav-link">Inicia Sesión</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link">Regístrate</div>
-                    </li>
-                </ul>
+            <div classname="collapse navbar-collapse  justify-content-between" id="navbarNav">
+              <ul classname="navbar-nav">
+                <li classname="nav-item">
+                  <Link classname="nav-link active" to="/">Inicio</Link>
+                </li>
+                <li classname="nav-item">
+                  <div classname="nav-link"><Link to ="/services">Servicios</Link></div>
+                </li>
+                <li classname="nav-item">
+                  <Link classname="nav-link" to="/promotions">Promociones</Link>
+                </li>
+                <li classname="nav-item">
+                  <Link classname="nav-link" to="/about">Acerca de</Link>
+                </li>
+                <li classname="nav-item">
+                  <Link classname="nav-link" to="/contact">Contáctanos</Link>
+                </li>
+              </ul>
+              <ul classname="navbar-nav ml-auto" id="navbarSupportedContent">
+                <li classname="nav-item">
+                  <Link classname="nav-link" to="/login">Inicia Sesión</Link>
+                </li>
+                <li classname="nav-item">
+                  <div classname="nav-link">Regístrate</div>
+                </li>
+              </ul>
             </div>
-        </div>
-    </nav>
-        </div>
+          </div>
+          { userName } 
+        </nav>
+      </div>
+
     )
 }
 

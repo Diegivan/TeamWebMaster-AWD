@@ -52,7 +52,7 @@ const MenuNav = () => {
                     <Link className="nav-link" to="/login">Iniciar sesion</Link>
                   </li>
                   <li>
-                    <Link className="nav-link" to="">Registrarse</Link>
+                    <Link className="nav-link" to="/register">Registrarse</Link>
                   </li>
                   
                   

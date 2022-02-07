@@ -22,6 +22,7 @@ import Admin from './admins/admin';
 import User from './users/user';
 import Service from './services/service';
 import Appointment from './appointments/appointment';
+import Register from './users/Register';
 import './App.css';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/admin/users" element={<User/>}/>
         <Route path="/admin/services" element={<Service/>}/>
         <Route path="/admin/appointments" element={<Appointment/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
       </div>
       <Footer /> 

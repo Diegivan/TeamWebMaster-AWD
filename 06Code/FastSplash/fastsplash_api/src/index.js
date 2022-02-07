@@ -10,7 +10,7 @@ const cors = require('cors')
 
 // Initializations
 const app = express();
-const port = process.env.PORT || 8085;
+const port = process.env.PORT || 3027;
 require('./database');
 require('./config/passport');
 

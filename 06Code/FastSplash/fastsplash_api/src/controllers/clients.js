@@ -49,17 +49,17 @@ ClientMethods.addClient = async (req, res) => {
         if (ciClient) {
             error.push({ message: 'Ya está registrada una persona con esa cédula' });
         }
-        res.status(400).json({error, user: userUser, client: ciClient})
+        res.status(200).json({error, user: userUser, client: ciClient})
     } else {
         const newUser = new User({ userName, password, rol });
         newUser.password = await newUser.encryptPassword(password);
         await newUser.save()
-            .catch((error) => res.json({ message: error }));
+            .catch((error) => console.log(error));
 
         const { _id } = newUser;
         const newClient = new Client({ firstName, lastName, ci, email, birthDate, userId: _id });
         await newClient.save()
-            .catch((error) => res.json({ message: error }));
+            .catch((error) => console.log(error));
 
         res.status(200).json({newUser, newClient});
     }
@@ -75,14 +75,14 @@ ClientMethods.editClient = async (req, res) => {
     const error = [];
     if (userUser && userUser._id != userId) {
         error.push({ message: 'El usuario ingresado ya existe' });   
-        res.status(400).json({error, user: userUser, client: client})        
+        res.status(200).json({error, user: userUser, client: client})        
     } else {
         if (actualPassword) {
             const userTest = new User({ userName, password, rol });
             const match = await userTest.comparePassword (actualPassword, user.password); 
             if(!match){
                 error.push({ message: 'La contraseña actual es incorrecta' });
-                return res.status(400).json({error, user: userUser, client: client})
+                return res.status(200).json({error, user: userUser, client: client})
             }        
         }  
         if(!actualPassword){

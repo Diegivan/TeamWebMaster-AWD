@@ -48,7 +48,7 @@ ServiceMethods.editService = async (req, res) => {
 }
 ServiceMethods.deleteService = async (req, res) => {
     
-    await Admin.findByIdAndDelete(req.params.id)
+    await Service.findByIdAndDelete(req.params.id)
     .lean()
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error}));

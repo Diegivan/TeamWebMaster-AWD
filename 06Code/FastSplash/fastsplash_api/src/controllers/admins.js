@@ -8,7 +8,12 @@ AdminMethods.allAdmins = async (req, res) => {
     const admins = await Admin.find({})
         .lean()
         .catch((error) => res.json({ message: error }));
-    res.status(200).json({ admins });
+
+    const users = await User.find({})
+        .lean()
+        .catch((error) => res.json({ message: error }));
+
+    res.status(200).json({ admins, users });
 }
 
 // All admins
@@ -16,7 +21,7 @@ AdminMethods.getAdmin = async (req, res) => {
     const admin = await Admin.findById(req.params.id)
         .lean()
         .catch((error) => res.json({ message: error }));
-        
+
     if (admin) {
         const user = await User.findById(admin.userId)
             .lean()

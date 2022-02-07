@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
     deleteService = (id) => {
-        axios.delete('http://localhost:8085/admin/delete-service/'+id)
+        axios.delete('http://localhost:3027/admin/delete-service/'+id)
 
     }
 

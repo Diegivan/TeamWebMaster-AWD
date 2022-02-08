@@ -84,7 +84,7 @@ class App extends Component {
         await this.setState({
             form: {
                 ...this.state.form,
-                rol: '1',
+                status: this.state.form ? this.state.form.status : "0",
                 [e.target.name]: e.target.value
             }
         });
@@ -206,7 +206,7 @@ class App extends Component {
                                 <div className="card-body">
                                     <div className="form-group">
                                         <label for="status">Estado de la cita</label>
-                                        <select name="status" class="form-control" id="exampleFormControlSelect1" value="{{appointment.status}}">
+                                        <select name="status" class="form-control" id="exampleFormControlSelect1" value={form ? form.status : 0} onChange={this.handleChange}>
                                             <option value="0">Pendiente</option>
                                             <option value="1">Completado</option>
                                         </select>

@@ -1,0 +1,21 @@
+body {
+    background: rgb(247, 247, 247);
+}
+
+.btn-invisible {
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.logo {
+    display: flex;
+    max-width: 15%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+a {
+    cursor: pointer;
+}

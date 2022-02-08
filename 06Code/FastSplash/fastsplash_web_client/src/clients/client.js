@@ -43,54 +43,220 @@ class App extends Component {
     }
 
     petitionPost = async () => {
-        
-        if (!this.state.form ||  !this.state.form.firstName   ||  !this.state.form.lastName   ||  !this.state.form.ci   ||
-            !this.state.form.email   ||  !this.state.form.birthDate   ||  !this.state.form.userName   ||
-            !this.state.form.password   ||  !this.state.form.confirmPassword   ||  !this.state.form.rol || this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
+        const temp = [];
+        if (!this.state.form || !this.state.form.firstName || !this.state.form.lastName || !this.state.form.ci ||
+            !this.state.form.email || !this.state.form.birthDate || !this.state.form.userName ||
+            !this.state.form.password || !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
             this.state.form.email === '' || this.state.form.birthDate === '' || this.state.form.userName === '' ||
             this.state.form.password === '' || this.state.form.confirmPassword === '' || this.state.form.rol === '') {
-            const temp = [];
             temp.push({ message: "Debe llenar todos los campos" });
             this.setState({ errorc: temp });
         }
-        else if(this.state.form.password !== this.state.form.confirmPassword) {
-            const temp = [];
-            temp.push({ message: "Las contraseñas no coinciden" });
-            this.setState({ errorc: temp });
-        } 
         else {
-            await axios.post(url + "clients/new", this.state.form).then((response) => {
-                if (!response.data.error) {
-                    this.modalInsert();
-                    const temp = [];
-                    temp.push({ message: "Cliente registrado correctamente" });
-                    this.setState({ success: temp });
-                    this.petitionGet();
-                } else {
-                    this.setState({ error: response.data.error });
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.firstName)) {
+                temp.push({ message: "El nombre unicamente debe llevar letras" });
+            }
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastName)) {
+                temp.push({ message: "El apellido unicamente debe llevar letras" });
+            }
+            if (this.state.form.ci) {
+                var total = 0;
+                var longitud = this.state.form.ci.length;
+                var longCheck = longitud - 1;
+                var message = "";
+                var flag = false;
+
+                if (longitud === 10) {
+                    if (isNaN(this.state.form.ci)) {
+                        temp.push({ message: "La CI solo puede contener numeros" });
+                    }
+                    else {
+                        for (var i = 0; i < longCheck; i++) {
+                            if (i === 0) {
+                                let firstNumbers = parseInt(this.state.form.ci.charAt(i)) * 10 + parseInt(this.state.form.ci.charAt(i + 1));
+                                if (firstNumbers >= 25) {
+                                    temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                }
+                            }
+                            if (i % 2 === 0) {
+                                var aux = this.state.form.ci.charAt(i) * 2;
+                                if (aux > 9) aux -= 9;
+                                total += aux;
+                            } else {
+                                total += parseInt(this.state.form.ci.charAt(i));
+                            }
+                        }
+
+                        total = total % 10 ? 10 - total % 10 : 0;
+
+                        if (this.state.form.ci.charAt(longitud - 1) != total) {
+                            temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                        }
+                        else {
+
+                        }
+                    }
                 }
-                console.log(response, "res");
-            }).catch((error) => {
-                console.log(error.message, "error");
-            })
+                else {
+                    temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                }
+            }
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.state.form.email)) {
+                temp.push({ message: "El email no sigue el formato: ejemplo@ej.ej" });
+            }
+            if (this.state.form.birthDate) {
+                var today = new Date();
+                var yyToday = today.getFullYear();
+
+                var dateArr = this.state.form.birthDate.split("-");
+                var yyDate = dateArr[0];
+                if (!(((yyToday - yyDate) <= 100) && ((yyToday - yyDate) >= 18))) {
+                    temp.push({ message: "No puede ingresar una persona mayor a 100 años o menor a 18" });
+                }
+            }
+            if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
+                temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+            }
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                if (this.state.form.password.length < 8) {
+                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                }
+                if (this.state.form.password.length > 16) {
+                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                }
+            }
+            if (this.state.form.password !== this.state.form.confirmPassword) {
+                temp.push({ message: "Las contraseñas no coinciden" });
+            }
+            if (temp.length == 0) {
+                await axios.post(url + "clients/new", this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        this.modalInsert();
+                        temp.push({ message: "Cliente registrado correctamente" });
+                        this.setState({ success: temp });
+                        this.petitionGet();
+                    } else {
+                        this.setState({ error: response.data.error });
+                    }
+                    console.log(response, "res");
+                }).catch((error) => {
+                    console.log(error.message, "error");
+                })
+            }
+            else {
+                this.setState({ errorc: temp });
+            }
         }
     }
 
     petitionPut = async () => {
-        await axios.put(url + "clients/editClient/" + this.state.form._id, this.state.form).then((response) => {
-            if (!response.data.error) {
-                this.modalUpdate();
-                const temp = [];
-                temp.push({ message: "Cliente actualizado correctamente" });
-                this.setState({ success: temp });
-                this.petitionGet();
-            } else {
-                this.setState({ error: response.data.error });
+        const temp = [];
+        if (!this.state.form || !this.state.form.firstName || !this.state.form.lastName || !this.state.form.ci ||
+            !this.state.form.email || !this.state.form.birthDate || !this.state.form.userName ||
+            !this.state.form.password || !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
+            this.state.form.email === '' || this.state.form.birthDate === '' || this.state.form.userName === '' ||
+            this.state.form.password === '' || this.state.form.confirmPassword === '' || this.state.form.rol === '') {
+            temp.push({ message: "Debe llenar todos los campos" });
+            this.setState({ errorc: temp });
+        }
+        else {
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.firstName)) {
+                temp.push({ message: "El nombre unicamente debe llevar letras" });
             }
-            console.log(response, "res");
-        }).catch((error) => {
-            console.log(error.message, "error");
-        })
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastName)) {
+                temp.push({ message: "El apellido unicamente debe llevar letras" });
+            }
+            if (this.state.form.ci) {
+                var total = 0;
+                var longitud = this.state.form.ci.length;
+                var longCheck = longitud - 1;
+                var message = "";
+                var flag = false;
+
+                if (longitud === 10) {
+                    if (isNaN(this.state.form.ci)) {
+                        temp.push({ message: "La CI solo puede contener numeros" });
+                    }
+                    else {
+                        for (var i = 0; i < longCheck; i++) {
+                            if (i === 0) {
+                                let firstNumbers = parseInt(this.state.form.ci.charAt(i)) * 10 + parseInt(this.state.form.ci.charAt(i + 1));
+                                if (firstNumbers >= 25) {
+                                    temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                }
+                            }
+                            if (i % 2 === 0) {
+                                var aux = this.state.form.ci.charAt(i) * 2;
+                                if (aux > 9) aux -= 9;
+                                total += aux;
+                            } else {
+                                total += parseInt(this.state.form.ci.charAt(i));
+                            }
+                        }
+
+                        total = total % 10 ? 10 - total % 10 : 0;
+
+                        if (this.state.form.ci.charAt(longitud - 1) != total) {
+                            temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                        }
+                        else {
+
+                        }
+                    }
+                }
+                else {
+                    temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                }
+            }
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.state.form.email)) {
+                temp.push({ message: "El email no sigue el formato: ejemplo@ej.ej" });
+            }
+            if (this.state.form.birthDate) {
+                var today = new Date();
+                var yyToday = today.getFullYear();
+
+                var dateArr = this.state.form.birthDate.split("-");
+                var yyDate = dateArr[0];
+                if (!(((yyToday - yyDate) <= 100) && ((yyToday - yyDate) >= 18))) {
+                    temp.push({ message: "No puede ingresar una persona mayor a 100 años o menor a 18" });
+                }
+            }
+            if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
+                temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+            }
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                if (this.state.form.password.length < 8) {
+                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                }
+                if (this.state.form.password.length > 16) {
+                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                }
+            }
+            if (this.state.form.password !== this.state.form.confirmPassword) {
+                temp.push({ message: "Las contraseñas no coinciden" });
+            }
+            if (temp.length == 0) {
+                await axios.put(url + "clients/editClient/" + this.state.form._id, this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        this.modalUpdate();
+                        const temp = [];
+                        temp.push({ message: "Cliente actualizado correctamente" });
+                        this.setState({ success: temp });
+                        this.petitionGet();
+                    } else {
+                        this.setState({ error: response.data.error });
+                    }
+                    console.log(response, "res");
+                }).catch((error) => {
+                    console.log(error.message, "error");
+                })
+            }
+            else {
+                this.setState({ errorc: temp });
+            }
+        }
     }
 
     petitionDelete = async () => {
@@ -163,13 +329,13 @@ class App extends Component {
         if (!actualUser || actualUser.rol != 2) {
             localStorage.clear();
             return (
-                <Navigate to='/login'/>
+                <Navigate to='/login' />
             )
         }
         return (
             <div className="row col-md-10 mx-auto">
                 {() => {
-                    
+
                 }}
                 {this.state.success.length > 0 ?
                     <div className="alert alert-success alert-dismissible fade show" role="success">
@@ -264,7 +430,7 @@ class App extends Component {
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        
+
                                     </div>
                                     : ''
                                 }
@@ -331,7 +497,7 @@ class App extends Component {
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        
+
                                     </div>
                                     : ''
                                 }

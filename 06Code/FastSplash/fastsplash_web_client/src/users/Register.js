@@ -9,6 +9,7 @@ class App extends Component {
         clients: [],
         users: [],
         error: [],
+        errorc: [],
         success: [],
         form: {
             _id: '',
@@ -28,7 +29,110 @@ class App extends Component {
     }
 
     petitionPost = async () => {
-        delete this.state.form._id;
+        const temp = [];
+        if (!this.state.form || !this.state.form.firstName || !this.state.form.lastName || !this.state.form.ci ||
+            !this.state.form.email || !this.state.form.birthDate || !this.state.form.userName ||
+            !this.state.form.password || !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
+            this.state.form.email === '' || this.state.form.birthDate === '' || this.state.form.userName === '' ||
+            this.state.form.password === '' || this.state.form.confirmPassword === '' || this.state.form.rol === '') {
+            temp.push({ message: "Debe llenar todos los campos" });
+            this.setState({ errorc: temp });
+        }
+        else {
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.firstName)) {
+                temp.push({ message: "El nombre unicamente debe llevar letras" });
+            }
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastName)) {
+                temp.push({ message: "El apellido unicamente debe llevar letras" });
+            }
+            if (this.state.form.ci) {
+                var total = 0;
+                var longitud = this.state.form.ci.length;
+                var longCheck = longitud - 1;
+                var message = "";
+                var flag = false;
+
+                if (longitud === 10) {
+                    if (isNaN(this.state.form.ci)) {
+                        temp.push({ message: "La CI solo puede contener numeros" });
+                    }
+                    else {
+                        for (var i = 0; i < longCheck; i++) {
+                            if (i === 0) {
+                                let firstNumbers = parseInt(this.state.form.ci.charAt(i)) * 10 + parseInt(this.state.form.ci.charAt(i + 1));
+                                if (firstNumbers >= 25) {
+                                    temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                }
+                            }
+                            if (i % 2 === 0) {
+                                var aux = this.state.form.ci.charAt(i) * 2;
+                                if (aux > 9) aux -= 9;
+                                total += aux;
+                            } else {
+                                total += parseInt(this.state.form.ci.charAt(i));
+                            }
+                        }
+
+                        total = total % 10 ? 10 - total % 10 : 0;
+
+                        if (this.state.form.ci.charAt(longitud - 1) != total) {
+                            temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                        }
+                        else {
+
+                        }
+                    }
+                }
+                else {
+                    temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                }
+            }
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.state.form.email)) {
+                temp.push({ message: "El email no sigue el formato: ejemplo@ej.ej" });
+            }
+            if (this.state.form.birthDate) {
+                var today = new Date();
+                var yyToday = today.getFullYear();
+
+                var dateArr = this.state.form.birthDate.split("-");
+                var yyDate = dateArr[0];
+                if (!(((yyToday - yyDate) <= 100) && ((yyToday - yyDate) >= 18))) {
+                    temp.push({ message: "No puede ingresar una persona mayor a 100 años o menor a 18" });
+                }
+            }
+            if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
+                temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+            }
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                if (this.state.form.password.length < 8) {
+                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                }
+                if (this.state.form.password.length > 16) {
+                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                }
+            }
+            if (this.state.form.password !== this.state.form.confirmPassword) {
+                temp.push({ message: "Las contraseñas no coinciden" });
+            }
+            if (temp.length == 0) {
+                await api.post("clients/new", this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        localStorage.setItem('actualUser', JSON.stringify(response.data.newUser))
+                        window.location.href = 'http://localhost:3000/';
+                    } else {
+                        this.setState({ error: response.data.error });
+                    }
+                    console.log(response, api.getUri, "res");
+                }).catch((error) => {
+                    console.log(error.message, api.getUri, " error");
+                })
+            }
+            else {
+                this.setState({ errorc: temp });
+            }
+        }
+        /*delete this.state.form._id;
         if (this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
             this.state.form.email === '' || this.state.form.birthDate === '' || this.state.form.userName === '' ||
             this.state.form.password === '' || this.state.form.confirmPassword === '' || this.state.form.rol === '') {
@@ -40,8 +144,8 @@ class App extends Component {
             temp.push({ message: "Las contraseñas no coinciden" });
             this.setState({ error: temp });
         } else {
-            
-            await api.post("clients/new", this.state.form).then((response) => {
+
+            /*await api.post("clients/new", this.state.form).then((response) => {
                 if (!response.data.error) {
                     localStorage.setItem('actualUser', JSON.stringify(response.data.newUser))
                     window.location.href = 'http://localhost:3000/';
@@ -52,7 +156,7 @@ class App extends Component {
             }).catch((error) => {
                 console.log(error.message, api.getUri, " error");
             })
-        }
+        }*/
     }
 
     handleChange = async e => {
@@ -89,14 +193,14 @@ class App extends Component {
                     </div>
                     : ''
                 }
-                {this.state.error.length > 0 ?
+                {this.state.errorc.length > 0 ?
                     <div className="alert alert-danger alert-dismissible fade show" role="error">
-                        {this.state.error.map((error) => {
+                        {this.state.errorc.map((error) => {
                             return (
                                 <div>- {error.message}</div>
                             )
                         })}
-                        <button type="button" className="btn-close" data-bs-dismiss="error" aria-label="Close" onClick={this.successButton}></button>
+                      
                     </div>
                     : ''
                 }

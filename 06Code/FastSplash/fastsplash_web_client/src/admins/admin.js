@@ -12,6 +12,7 @@ class App extends Component {
         admins: [],
         users: [],
         error: [],
+        errora: [],
         success: [],
         modalInsert: false,
         modalUpdate: false,
@@ -39,46 +40,197 @@ class App extends Component {
     }
 
     petitionPost = async () => {
-        delete this.state.form._id;
-        if (this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
-            this.state.form.userName === '' || this.state.form.password === '' || 
-            this.state.form.confirmPassword === '' || this.state.form.rol === '') {
-            const temp = [];
+        const temp = [];
+        if (!this.state.form ||  !this.state.form.name || !this.state.form.lastname || !this.state.form.CI ||
+            !this.state.form.userName || !this.state.form.password || 
+            !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
+        this.state.form.userName === '' || this.state.form.password === '' || 
+        this.state.form.confirmPassword === '' || this.state.form.rol === '') {
             temp.push({ message: "Debe llenar todos los campos" });
-            this.setState({ error: temp });
-        } else {
-            await axios.post(url + "admin/new-admin", this.state.form).then((response) => {
-                if (!response.data.error) {
-                    this.modalInsert();
-                    const temp = [];
-                    temp.push({ message: "Administrador registrado correctamente" });
-                    this.setState({ success: temp });
-                    this.petitionGet();
-                } else {
-                    this.setState({ error: response.data.error });
-                }
-                console.log(response, "res");
-            }).catch((error) => {
-                console.log(error.message, "error");
-            })
+            this.setState({ errora: temp });
         }
+        else {
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.name)) {
+                temp.push({ message: "El nombre unicamente debe llevar letras" });
+            }
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastname)) {
+                temp.push({ message: "El apellido unicamente debe llevar letras" });
+            }
+            if ( this.state.form.CI) {
+                var total = 0;
+                var longitud =  this.state.form.CI.length;
+                var longCheck = longitud - 1;
+                var message = "";
+                var flag = false;
+
+                if (longitud === 10) {
+                    if (isNaN( this.state.form.CI)) {
+                        temp.push({ message: "La CI solo puede contener numeros" });
+                    }
+                    else {
+                        for (var i = 0; i < longCheck; i++) {
+                            if (i === 0) {
+                                let firstNumbers = parseInt( this.state.form.CI.charAt(i)) * 10 + parseInt( this.state.form.CI.charAt(i + 1));
+                                if (firstNumbers >= 25) {
+                                    temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                }
+                            }
+                            if (i % 2 === 0) {
+                                var aux =  this.state.form.CI.charAt(i) * 2;
+                                if (aux > 9) aux -= 9;
+                                total += aux;
+                            } else {
+                                total += parseInt( this.state.form.CI.charAt(i));
+                            }
+                        }
+
+                        total = total % 10 ? 10 - total % 10 : 0;
+
+                        if ( this.state.form.CI.charAt(longitud - 1) != total) {
+                            temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                        }
+                        else {
+
+                        }
+                    }
+                }
+                else {
+                    temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                }
+            }
+            if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
+                temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+            }
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                if (this.state.form.password.length < 8) {
+                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                }
+                if (this.state.form.password.length > 16) {
+                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                }
+            }
+            if (this.state.form.password !== this.state.form.confirmPassword) {
+                temp.push({ message: "Las contraseñas no coinciden" });
+            }
+            if (temp.length == 0) {
+                await axios.post(url + "admin/new-admin", this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        this.modalInsert();
+                        const temp = [];
+                        temp.push({ message: "Administrador registrado correctamente" });
+                        this.setState({ success: temp });
+                        this.petitionGet();
+                    } else {
+                        this.setState({ error: response.data.error });
+                    }
+                    console.log(response, "res");
+                }).catch((error) => {
+                    console.log(error.message, "error");
+                })
+            }
+            else {
+                this.setState({ errora: temp });
+            }
+        }
+       
     }
 
     petitionPut = async () => {
-        await axios.put(url + "admin/edit-admins/" + this.state.form._id, this.state.form).then((response) => {
-            if (!response.data.error) {
-                this.modalUpdate();
-                const temp = [];
-                temp.push({ message: "Administrador actualizado correctamente" });
-                this.setState({ success: temp });
-                this.petitionGet();
-            } else {
-                this.setState({ error: response.data.error });
+        const temp = [];
+        if (!this.state.form ||  !this.state.form.name || !this.state.form.lastname || !this.state.form.CI ||
+            !this.state.form.userName || !this.state.form.password || 
+            !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
+        this.state.form.userName === '' || this.state.form.password === '' || 
+        this.state.form.confirmPassword === '' || this.state.form.rol === '') {
+            temp.push({ message: "Debe llenar todos los campos" });
+            this.setState({ errora: temp });
+        }
+        else {
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.name)) {
+                temp.push({ message: "El nombre unicamente debe llevar letras" });
             }
-            console.log(response, "res");
-        }).catch((error) => {
-            console.log(error.message, "error");
-        })
+            if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastname)) {
+                temp.push({ message: "El apellido unicamente debe llevar letras" });
+            }
+            if ( this.state.form.CI) {
+                var total = 0;
+                var longitud =  this.state.form.CI.length;
+                var longCheck = longitud - 1;
+                var message = "";
+                var flag = false;
+
+                if (longitud === 10) {
+                    if (isNaN( this.state.form.CI)) {
+                        temp.push({ message: "La CI solo puede contener numeros" });
+                    }
+                    else {
+                        for (var i = 0; i < longCheck; i++) {
+                            if (i === 0) {
+                                let firstNumbers = parseInt( this.state.form.CI.charAt(i)) * 10 + parseInt( this.state.form.CI.charAt(i + 1));
+                                if (firstNumbers >= 25) {
+                                    temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                }
+                            }
+                            if (i % 2 === 0) {
+                                var aux =  this.state.form.CI.charAt(i) * 2;
+                                if (aux > 9) aux -= 9;
+                                total += aux;
+                            } else {
+                                total += parseInt( this.state.form.CI.charAt(i));
+                            }
+                        }
+
+                        total = total % 10 ? 10 - total % 10 : 0;
+
+                        if ( this.state.form.CI.charAt(longitud - 1) != total) {
+                            temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                        }
+                        else {
+
+                        }
+                    }
+                }
+                else {
+                    temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                }
+            }
+            if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
+                temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+            }
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                if (this.state.form.password.length < 8) {
+                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                }
+                if (this.state.form.password.length > 16) {
+                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                }
+            }
+            if (this.state.form.password !== this.state.form.confirmPassword) {
+                temp.push({ message: "Las contraseñas no coinciden" });
+            }
+            if (temp.length == 0) {
+                await axios.put(url + "admin/edit-admins/" + this.state.form._id, this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        this.modalUpdate();
+                        const temp = [];
+                        temp.push({ message: "Administrador actualizado correctamente" });
+                        this.setState({ success: temp });
+                        this.petitionGet();
+                    } else {
+                        this.setState({ error: response.data.error });
+                    }
+                    console.log(response, "res");
+                }).catch((error) => {
+                    console.log(error.message, "error");
+                })
+            }
+            else {
+                this.setState({ errora: temp });
+            }
+        }
+
     }
 
     petitionDelete = async () => {
@@ -92,11 +244,11 @@ class App extends Component {
     }
 
     modalInsert = () => {
-        this.setState({ modalInsert: !this.state.modalInsert, error: [] });
+        this.setState({ modalInsert: !this.state.modalInsert, error: [], errora: [] });
     }
 
     modalUpdate = () => {
-        this.setState({ modalUpdate: !this.state.modalUpdate, error: [] });
+        this.setState({ modalUpdate: !this.state.modalUpdate, error: [], errora: [] });
     }
 
     selectAdmin = (admin, user) => {
@@ -236,14 +388,13 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errora.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errora.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     : ''
                                 }
@@ -296,9 +447,9 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errora.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errora.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )

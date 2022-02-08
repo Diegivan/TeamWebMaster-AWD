@@ -112,7 +112,7 @@ class App extends Component {
                 price: this.state.form ? this.state.form.price : 0.00,
                 discount: this.state.form ? this.state.form.discount : 0.00,
                 [e.target.name]: e.target.value
-            }
+            } 
         });
         console.log(this.state.form);
     }

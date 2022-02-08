@@ -51,7 +51,7 @@ const Login = () => {
             <div class="col-md-4 mx-auto mt-5 mb-5">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Iniciar Sesión</h3>
+                        <h2 className='display-6'>Iniciar Sesión</h2>
                     </div>
                     <div class="card-body">
                         <div class="form-floating">

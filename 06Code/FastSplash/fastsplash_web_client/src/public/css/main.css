@@ -15,3 +15,7 @@ body {
     flex-wrap: nowrap;
     flex-direction: row;
 }
+
+a {
+    cursor: pointer;
+}

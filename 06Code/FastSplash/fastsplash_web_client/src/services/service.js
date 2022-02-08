@@ -109,6 +109,8 @@ class App extends Component {
         await this.setState({
             form: {
                 ...this.state.form,
+                price: this.state.form ? this.state.form.price : 0.00,
+                discount: this.state.form ? this.state.form.discount : 0.00,
                 [e.target.name]: e.target.value
             }
         });
@@ -183,7 +185,7 @@ class App extends Component {
                                         <td>{index + 1}</td>
                                         <td>{service.name}</td>
                                         <td>{service.description}</td>
-                                        <td>$ {service.price}</td>
+                                        <td>$ {service.price.toFixed(2)}</td>
                                         <td>{service.discount} %</td>
                                         <td>
                                             <button className="btn btn-primary rounded-circle py-1 px-2" onClick={() => { this.selectService(service); this.modalUpdate() }}><FontAwesomeIcon icon={faEdit} /></button>
@@ -226,12 +228,12 @@ class App extends Component {
                                     </div>
                                     <div className="form-floating">
                                         <input type="number" name="price" id="price" className="form-control mb-3 form-floating"
-                                            title="Precio" value={form ? form.price : 0.00} onChange={this.handleChange} min="0.00" step="0.01" />
+                                            title="Precio" value={form ? form.price : 0.00} onInput={this.handleChange} min="0.00" step="0.01" />
                                         <label htmlFor="price">Precio (sin IVA)</label>
                                     </div>
                                     <div className="form-floating">
                                         <input type="number" name="discount" id="discount" className="form-control mb-3 form-floating"
-                                            title="Descuento (%)" value={form ? form.discount : 0.00} onChange={this.handleChange} min="0.00" step="0.01" />
+                                            title="Descuento (%)" value={form ? form.discount : 0.00} onInput={this.handleChange} min="0.00" step="0.01" />
                                         <label htmlFor="discount">Descuento (%)</label>
                                     </div>
                                 </div>

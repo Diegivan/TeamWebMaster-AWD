@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import logo from '../public/img/isotipo.svg';
 import iso from '../public/img/letras2.svg';
+import "../public/css/main.css"
 
 const MenuNav = () => {
   const handle = ()=>{
@@ -18,10 +19,10 @@ const MenuNav = () => {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div className="container-fluid container">
-          <div className="navbar-brand logo">
+          <Link className="navbar-brand logo" to="/">
               <img src={logo} alt="isotipo" width="43%" />
               <img src={iso} alt="logo" width="57%" />
-          </div>
+          </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -71,10 +72,10 @@ const MenuNav = () => {
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
           <div className="container-fluid container">
-            <div className="navbar-brand logo">
+            <Link className="navbar-brand logo" to="/">
               <img src={logo} alt="isotipo" width="43%" />
               <img src={iso} alt="logo" width="57%" />
-            </div>
+            </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -123,10 +124,10 @@ const MenuNav = () => {
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
           <div className="container-fluid container">
-            <div className="navbar-brand logo">
+            <Link className="navbar-brand logo" to="/">
               <img src={logo} alt="isotipo" width="43%" />
               <img src={iso} alt="logo" width="57%" />
-            </div>
+            </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>

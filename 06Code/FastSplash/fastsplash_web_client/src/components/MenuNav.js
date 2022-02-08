@@ -150,7 +150,10 @@ const MenuNav = () => {
                   <Link className="nav-link" to="contact">Contáctanos</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="">Hacer cita</Link>
+                  <Link className="nav-link" to="appointments/new">Hacer cita</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="appointments/me">Historial de citas</Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" onClick={handle}>Salir</a>

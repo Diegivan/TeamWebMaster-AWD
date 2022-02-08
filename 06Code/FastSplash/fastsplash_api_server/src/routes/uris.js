@@ -45,6 +45,7 @@ router.get('/admin/users', UserController.allUsers);
 // Appointment Uris
 router.get('/appointment', AppointmentController.allAppointments);
 router.get('/historial/appointments', AppointmentController.historyAppointments);
+router.get('/appointments/historial/:id', AppointmentController.historialAppointments);
 router.get('/admin/appointments',  AppointmentController.allAppointmentsUsers);
 router.get('/admin/edit-appointments/:id',  AppointmentController.getAppointment);
 router.get('/get-factura/:id', AppointmentController.getBill);

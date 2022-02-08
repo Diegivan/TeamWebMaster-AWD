@@ -36,6 +36,18 @@ AppointmentMethods.historyAppointments = async (req, res) => {
     res.status(200).json({ dataReports });
 }
 
+AppointmentMethods.historialAppointments = async (req, res) => {
+    const appointments = await Appointment.find({Name: req.params.id})
+        .lean()
+        .catch((error) => console.log(error));
+
+    const services = await Service.find({})
+        .lean()
+        .catch((error) => console.log(error));
+
+    res.status(200).json({ appointments, services });
+}
+
 // All Appointments from Admin
 AppointmentMethods.allAppointmentsUsers = async (req, res) => {
     const appointments = await Appointment.find({})
@@ -63,10 +75,10 @@ AppointmentMethods.getBill = async (req, res) => {
 
     const appointment = await Appointment.findById(req.params.id)
         .lean()
-        .catch((error) => res.json({ message: error }));
-    const service = await Service.findById(req.params.id)
+        .catch((error) => console.log(error));
+    const service = await Service.findById(appointment.services)
         .lean()
-        .catch((error) => res.json({ message: error }));
+        .catch((error) => console.log(error));
     const doc = new PDF({ bufferPage: true });
     const filename = `Factura${Date.now()}.pdf`;
     const stream = res.writeHead(200, {
@@ -82,7 +94,7 @@ AppointmentMethods.getBill = async (req, res) => {
             Direccion: `${appointment.Adress}`,
             Referencia: `${appointment.Reference}`,
             Placa: `${appointment.Plate}`,
-            Servicio: `${appointment.services}`,
+            Servicio: `${service.name}`,
             Hora: `${appointment.hours}`,
             Observacion: `${appointment.Obs}`,
         }
@@ -115,7 +127,7 @@ AppointmentMethods.getBill = async (req, res) => {
         width: 420,
         align: 'left'
     });
-    doc.text(`Servicio: ${appointment.services} `, {
+    doc.text(`Servicio: ${service.name} `, {
         width: 420,
         align: 'left'
     });
@@ -128,7 +140,7 @@ AppointmentMethods.getBill = async (req, res) => {
         width: 420,
         align: 'left'
     });
-    doc.text(`Precio: ${appointment.services.price} `, {
+    doc.text(`Precio: ${service.price} `, {
         width: 420,
         align: 'left'
     });
@@ -163,7 +175,7 @@ AppointmentMethods.getBill = async (req, res) => {
 // Create Appointment
 AppointmentMethods.addAppointment = async (req, res) => {
     const { Name, Adress, Reference, Date, Plate, cars, services, hours, status, Obs } = req.body;
-    const NewAppointment = new Appointment({ Name, Adress, Reference, Date, Plate, cars, services, hours, status, Obs });
+    const NewAppointment = new Appointment({ Name, Adress, Reference: Reference || Reference != ''? Reference : "Ninguna", Date, Plate, cars, services, hours, status, Obs: Obs || Obs != '' ? Obs : "Ninguna"});
     await NewAppointment.save()
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));

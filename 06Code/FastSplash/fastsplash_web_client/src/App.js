@@ -23,6 +23,8 @@ import User from './users/user';
 import Service from './services/service';
 import Appointment from './appointments/appointment';
 import Register from './users/Register';
+import NewAppointment from './appointments/newAppointment';
+import HistorialAppointment from './appointments/userAppointments';
 import './App.css';
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
         <Route path="/admin/services" element={<Service/>}/>
         <Route path="/admin/appointments" element={<Appointment/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/appointments/new" element={<NewAppointment/>}/>
+        <Route path="/appointments/me" element={<HistorialAppointment/>}/>
       </Routes>
       </div>
       <Footer /> 

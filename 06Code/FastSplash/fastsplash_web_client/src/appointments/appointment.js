@@ -163,7 +163,7 @@ class App extends Component {
                                         <td>{appointment.cars}</td>
                                         <td>{appointment.Plate}</td>
                                         <td>{appointment.Date.substring(0, 10)}</td>
-                                        <td>{appointment.Adress}. <i>{appointment.Reference}</i></td>
+                                        <td>{appointment.Adress}. {appointment.Reference != "Ninguna" ? <i>{appointment.Reference}</i> : ''}</td>
                                         <td>{appointment.hours}</td>
                                         {this.state.services.map(service => {
                                             if (appointment.services == service._id) {
@@ -172,7 +172,7 @@ class App extends Component {
                                                 )
                                             }
                                         })}
-                                        <td>{!appointment.Obs ? <i>Ninguno</i> : appointment.Obs}</td>
+                                        <td>{!appointment.Obs || appointment.Obs == 'Ninguna' ? <i>Ninguno</i> : appointment.Obs}</td>
                                         <td>
                                             <button className={appointment.status == 0 ? 'btn btn-warning' : 'btn btn-success'} onClick={() => { this.selectAppointment(appointment); this.modalUpdate() }}>{appointment.status == 0 ? 'Pendiente ' : 'Completado '} </button>
                                         </td>

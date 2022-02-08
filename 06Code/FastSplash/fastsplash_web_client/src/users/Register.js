@@ -40,6 +40,7 @@ class App extends Component {
             temp.push({ message: "Las contraseñas no coinciden" });
             this.setState({ error: temp });
         } else {
+            
             await api.post("clients/new", this.state.form).then((response) => {
                 if (!response.data.error) {
                     localStorage.setItem('actualUser', JSON.stringify(response.data.newUser))

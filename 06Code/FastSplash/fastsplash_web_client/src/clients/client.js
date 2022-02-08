@@ -12,6 +12,7 @@ class App extends Component {
         clients: [],
         users: [],
         error: [],
+        errorc: [],
         success: [],
         modalInsert: false,
         modalUpdate: false,
@@ -42,14 +43,22 @@ class App extends Component {
     }
 
     petitionPost = async () => {
-        delete this.state.form._id;
-        if (this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
+        
+        if (!this.state.form ||  !this.state.form.firstName   ||  !this.state.form.lastName   ||  !this.state.form.ci   ||
+            !this.state.form.email   ||  !this.state.form.birthDate   ||  !this.state.form.userName   ||
+            !this.state.form.password   ||  !this.state.form.confirmPassword   ||  !this.state.form.rol || this.state.form.firstName === '' || this.state.form.lastName === '' || this.state.form.ci === '' ||
             this.state.form.email === '' || this.state.form.birthDate === '' || this.state.form.userName === '' ||
             this.state.form.password === '' || this.state.form.confirmPassword === '' || this.state.form.rol === '') {
             const temp = [];
             temp.push({ message: "Debe llenar todos los campos" });
-            this.setState({ error: temp });
-        } else {
+            this.setState({ errorc: temp });
+        }
+        else if(this.state.form.password !== this.state.form.confirmPassword) {
+            const temp = [];
+            temp.push({ message: "Las contraseñas no coinciden" });
+            this.setState({ errorc: temp });
+        } 
+        else {
             await axios.post(url + "clients/new", this.state.form).then((response) => {
                 if (!response.data.error) {
                     this.modalInsert();
@@ -95,11 +104,11 @@ class App extends Component {
     }
 
     modalInsert = () => {
-        this.setState({ modalInsert: !this.state.modalInsert, error: [] });
+        this.setState({ modalInsert: !this.state.modalInsert, error: [], errorc: [] });
     }
 
     modalUpdate = () => {
-        this.setState({ modalUpdate: !this.state.modalUpdate, error: [] });
+        this.setState({ modalUpdate: !this.state.modalUpdate, error: [], errorc: [] });
     }
 
     selectClient = (client, user) => {
@@ -139,7 +148,7 @@ class App extends Component {
     }
 
     successButton = () => {
-        this.setState({ success: [], error: [] });
+        this.setState({ success: [], error: [], errorc: [] });
     }
 
     checkAuth = () => {
@@ -248,14 +257,14 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errorc.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errorc.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        
                                     </div>
                                     : ''
                                 }
@@ -274,7 +283,7 @@ class App extends Component {
                                     </div>
                                     <div className="form-floating">
                                         <input type="date" name="birthDate" id="dateBirth" className="form-control mb-3 form-floating"
-                                            title="Date of Birth" value={form ? (() => { if (form.birthDate.length <= 9) { return (form.birthDate.substring(0, 8) + '0' + form.birthDate.substring(8, 9)) } else { return (form.birthDate) } }) : ''} onChange={this.handleChange} />
+                                            title="Date of Birth" value={form ? form.birthDate : ''} onChange={this.handleChange} />
                                         <label for="birthDate">Fecha de Nacimiento</label>
                                     </div>
                                     <hr />
@@ -315,14 +324,14 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errorc.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errorc.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        
                                     </div>
                                     : ''
                                 }

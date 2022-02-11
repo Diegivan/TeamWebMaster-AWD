@@ -17,7 +17,7 @@ class AllServices extends Component {
     }
 
     getServices(){
-        axios.get('http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/admin/services')
+        axios.get('http://localhost:3027/admin/services')
         .then(response => {
             this.setState({services: response.data.service},() => {
 

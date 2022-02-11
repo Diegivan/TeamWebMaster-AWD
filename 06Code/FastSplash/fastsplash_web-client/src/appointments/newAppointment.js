@@ -48,7 +48,7 @@ class App extends Component {
         } else {
             await api.post("appointment", this.state.form).then((response) => {
                 if (!response.data.error) {
-                    window.location.href = 'http://localhost:3000/appointments/me';
+                    window.location.href = 'http://localhost:3028/appointments/me';
                 } else {
                     this.setState({ error: response.data.error });
                 }

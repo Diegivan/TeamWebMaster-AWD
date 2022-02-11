@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
     deleteService = (id) => {
-        axios.delete('http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/admin/delete-service/'+id)
+        axios.delete('http://localhost:3027/admin/delete-service/'+id)
 
     }
 

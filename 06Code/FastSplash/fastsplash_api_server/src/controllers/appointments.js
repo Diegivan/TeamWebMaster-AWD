@@ -168,8 +168,6 @@ AppointmentMethods.getBill = async (req, res) => {
     doc.render();
 
     doc.end();
-
-    res.status(200).json({ appointment, service });
 }
 
 // Create Appointment

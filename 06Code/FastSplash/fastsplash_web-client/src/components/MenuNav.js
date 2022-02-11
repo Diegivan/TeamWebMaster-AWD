@@ -9,7 +9,7 @@ import "../public/css/main.css"
 const MenuNav = () => {
   const handle = ()=>{
     localStorage.clear();
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'http://localhost:3028/';
     }
   const  actualUser  = JSON.parse(localStorage.getItem('actualUser'));
   if(!actualUser)

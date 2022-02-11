@@ -14,19 +14,19 @@ const Login = () => {
         e.preventDefault()
         setError(null)
         setLoading(true)
-        axios.post('http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/login/auth', {
+        axios.post('http://localhost:3027/login/auth', {
             userName: userName,
             password: password
         })
             .then(res => {
                 setLoading(false)
                 localStorage.setItem('actualUser', JSON.stringify(res.data.actualUser))
-                axios.post('http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/login', {
+                axios.post('http://localhost:3027/login', {
                     userName: userName,
                     password: password
                 })
                 .then(res => {
-                    window.location.href = 'http://localhost:3000/';
+                    window.location.href = 'http://localhost:3028/';
                 })
                 .catch(err => {
                     setLoading(false)

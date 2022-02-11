@@ -24,7 +24,7 @@ UserMethods.loginAuthenticate = async (req, res) => {
         const newUser = new User({ userName: user.userName, password: user.password, rol: user.rol });
         const match = await newUser.comparePassword(req.body.password, user.password);
         if (match) {
-            res.status(200).json({actualUser: newUser});
+            res.status(200).json({actualUser: user});
         } else {
             res.status(400).json({error: "Contraseña Incorrecta"});
         }

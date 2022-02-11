@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router'
-const url = "http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/";
+const url = "http://localhost:3027/";
 
 class App extends Component {
     state = {

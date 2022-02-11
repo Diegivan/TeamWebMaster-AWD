@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { Navigate } from 'react-router'
-const url = "http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/";
+const url = "http://localhost:3027/";
 
 class App extends Component {
     state = {

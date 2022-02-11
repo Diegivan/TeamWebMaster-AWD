@@ -1,7 +1,5 @@
 const express = require('express');
 //const mongoose = require('mongoose');
-const path = require('path');
-const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport')
@@ -21,7 +19,6 @@ app.set('port', port);
 app.use(clientRoutes);*/
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(methodOverride('_method'));
 app.use(session({
     secret: 'mysecretapp',
     resave: true,
@@ -45,4 +42,4 @@ app.use((req, res, next) => {
 app.use(require('./routes/uris'));
 
 //mongodb connection
-app.listen(port, () => console.log('Server listening on port', port, '\nhttp://localhost:' + port));
+app.listen(port, () => console.log('Server listening on port', port));

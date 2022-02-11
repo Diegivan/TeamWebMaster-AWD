@@ -60,7 +60,7 @@ class App extends Component {
             const temp = [];
             temp.push({ message: "Cita generada correctamente" });
             this.setState({ success: temp });
-            window.location.href = "http://ec2-44-202-44-135.compute-1.amazonaws.com:3027/get-factura/"+id;
+            window.location.href = "http://localhost:3027/get-factura/"+id;
         }).catch(error => {
             console.log(error.message);
         })

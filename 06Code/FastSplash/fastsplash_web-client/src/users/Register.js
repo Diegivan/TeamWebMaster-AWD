@@ -119,7 +119,7 @@ class App extends Component {
                 await api.post("clients/new", this.state.form).then((response) => {
                     if (!response.data.error) {
                         localStorage.setItem('actualUser', JSON.stringify(response.data.newUser))
-                        window.location.href = 'http://localhost:3000/';
+                        window.location.href = 'http://localhost:3028/';
                     } else {
                         this.setState({ error: response.data.error });
                     }
@@ -148,7 +148,7 @@ class App extends Component {
             /*await api.post("clients/new", this.state.form).then((response) => {
                 if (!response.data.error) {
                     localStorage.setItem('actualUser', JSON.stringify(response.data.newUser))
-                    window.location.href = 'http://localhost:3000/';
+                    window.location.href = 'http://localhost:3028/';
                 } else {
                     this.setState({ error: response.data.error });
                 }

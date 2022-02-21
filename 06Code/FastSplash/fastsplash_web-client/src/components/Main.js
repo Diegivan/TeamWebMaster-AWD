@@ -41,7 +41,7 @@ const Main = () => {
                                                 1 personal
                                             </div>
                                             <div className="list-group-item">
-                                                <button className="btn btn-success btn-1g btn-block text-truncate">I'm interested</button>
+                                                <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">I'm interested</button>
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@ const Main = () => {
                                                 Lavado de llantas
                                             </div>
                                             <div className="list-group-item">
-                                                <button className="btn btn-success btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                                <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@ const Main = () => {
                                             </div>
 
                                             <div className="list-group-item">
-                                                <button className="btn btn-success btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                                <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@ const Main = () => {
                                             </div>
 
                                             <div className="list-group-item">
-                                                <button className="btn btn-success btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                                <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
                                             </div>
                                         </div>
                                     </div>

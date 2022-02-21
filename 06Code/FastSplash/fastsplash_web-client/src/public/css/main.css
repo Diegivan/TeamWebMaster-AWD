@@ -19,3 +19,70 @@ body {
 a {
     cursor: pointer;
 }
+
+.nav-button {
+    background: rgb(255, 255, 255);
+    background-color: rgb(29, 120, 194);
+    transition: all 0.1 ease-out;
+}
+
+.nav-button:hover {
+    border-color: rgb(43, 122, 197) !important;
+    color: rgb(236, 236, 236) !important;
+    background-color: rgb(43, 122, 197) !important;
+}
+
+.button-b{
+    color: rgb(236, 236, 236) !important;
+    background-color: rgb(43, 122, 197) !important;
+    transition: all 0.1 ease-out;
+}
+
+.button-b:hover{
+    background-color: rgb(23, 83, 139) !important;
+}
+
+.blue {
+    color: rgb(43, 122, 197);
+}
+
+.promo {
+    border: solid 1px rgba(58, 58, 58, 0.11);
+    border-radius: 15px;
+    box-shadow: 0px 0px 13px -6px rgba(82, 82, 82, 1);
+}
+
+.pr1 {
+    background-image: url("https://t2.uc.ltmcdn.com/images/6/0/0/img_frases_para_felicitar_en_ano_nuevo_16006_600.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pr2 {
+    background-image: url("https://www.ecuavisa.com/binrepository/633x356/0c0/0d0/none/11705/BFIH/fiestas-de-quito-2015-eventos-programa_251493_20211126110808.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pr3 {
+    background-image: url("https://okdiario.com/img/2018/02/14/san-valentin.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    margin: -2px 0 0 -13px;
+    padding: 7px 25px;
+    border-radius: 15px;
+    display: block;
+    width: calc(100% + 26px);
+    height: calc(100% + 3px);
+    backdrop-filter: blur(4px);
+    background-color: rgba(4, 30, 43, 0.459);
+}

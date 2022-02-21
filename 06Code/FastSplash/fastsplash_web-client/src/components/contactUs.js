@@ -3,11 +3,12 @@ import React, { Component } from 'react'
 export default class contactUs extends Component {
     render(){
         return (
-            <section className="mb-4">
+          <div className='d-flex justify-content-center'>
+            <section className="col-7 mb-4">
             {/*Section heading*/}
-            <h2 className="h1-responsive font-weight-bold text-center my-4">Contactanos</h2>
+            <h2 className="h1-responsive font-weight-bold text-center my-4">Contáctanos</h2>
             {/*Section description*/}
-            <p className="text-center w-responsive mx-auto mb-5">Dudas o preguntas sobre fastSplash, estaremos encontados de responderte.</p>
+            <p className="text-center w-responsive mx-auto mb-5">Dudas o preguntas sobre FastSplash, estaremos encontados de responderte.</p>
             <div className="row">
               {/*Grid column*/}
               <div className="col-md-9 mb-md-0 mb-5">
@@ -18,7 +19,7 @@ export default class contactUs extends Component {
                     <div className="col-md-6">
                       <div className="md-form mb-0">
                         <input type="text" id="name" name="name" className="form-control" />
-                        <label htmlFor="name" className>Nombre</label>
+                        <label htmlFor="name" className="text-muted">Nombre</label>
                       </div>
                     </div>
                     {/*Grid column*/}
@@ -26,7 +27,7 @@ export default class contactUs extends Component {
                     <div className="col-md-6">
                       <div className="md-form mb-0">
                         <input type="text" id="email" name="email" className="form-control" />
-                        <label htmlFor="email" className>Email</label>
+                        <label htmlFor="email" className="text-muted">Email</label>
                       </div>
                     </div>
                     {/*Grid column*/}
@@ -37,7 +38,7 @@ export default class contactUs extends Component {
                     <div className="col-md-12">
                       <div className="md-form mb-0">
                         <input type="text" id="subject" name="subject" className="form-control" />
-                        <label htmlFor="subject" className>Asunto</label>
+                        <label htmlFor="subject" className="text-muted">Asunto</label>
                       </div>
                     </div>
                   </div>
@@ -48,14 +49,14 @@ export default class contactUs extends Component {
                     <div className="col-md-12">
                       <div className="md-form">
                         <textarea type="text" id="message" name="message" rows={2} className="form-control md-textarea" defaultValue={""} />
-                        <label htmlFor="message">Mensaje</label>
+                        <label htmlFor="message" className='text-muted'>Mensaje</label>
                       </div>
                     </div>
                   </div>
                   {/*Grid row*/}
                 </form>
-                <div className="text-center text-md-left">
-                  <a className="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+                <div className="text-center text-md-left py-2">
+                  <a className="btn button-b rounded-pill px-5" onclick="document.getElementById('contact-form').submit();">Enviar</a>
                 </div>
                 <div className="status" />
               </div>
@@ -63,19 +64,19 @@ export default class contactUs extends Component {
               {/*Grid column*/}
               <div className="col-md-3 text-center">
                 <ul className="list-unstyled mb-0">
-                  <li><i className="fas fa-map-marker-alt fa-2x" />
-                    <p>Quito, Ecuador</p>
+                  <li><i className="fas fa-map-marker-alt fa-3x  blue" />
+                    <p className='blue fs-5'>Quito, Ecuador</p>
                   </li>
                   
-                  <li><i className="fas fa-envelope mt-4 fa-2x" />
-                    <p>fastSplash@hotmail.com</p>
+                  <li><i className="fas fa-envelope mt-4 fa-3x blue" />
+                    <p className='blue fs-5'>fastSplash@hotmail.com</p>
                   </li>
                 </ul>
               </div>
               {/*Grid column*/}
             </div>
           </section>
-          
+          </div>
             
         )
     }

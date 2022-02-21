@@ -1,49 +1,49 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import ServicesItem from './ServicesItem';
 
 class AllServices extends Component {
 
-    constructor(){
+    constructor() {
         super();
-        this.state={
-            services:[], id:''
-            
+        this.state = {
+            services: [], id: ''
+
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getServices();
     }
 
-    getServices(){
+    getServices() {
         axios.get('http://localhost:3027/admin/services')
-        .then(response => {
-            this.setState({services: response.data.service},() => {
+            .then(response => {
+                this.setState({ services: response.data.service }, () => {
 
-                //console.log(this.state);
+                    //console.log(this.state);
+                })
             })
-        })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }
-    render(){
+    render() {
         const serviceItems = this.state.services.map((service) => {
 
-            return(
-                <ServicesItem key={service._id} item={service}/>
+            return (
+                <ServicesItem key={service._id} item={service} />
             )
         })
 
-        return(
+        return (
             <div>
-                 
-                    <div className="container">
-                    <div className="col-sm-12 p-4">
-                    <h2 className=" p-2">Servicios Disponibles:</h2>
+
+                <div className="container">
+                    <h2 className=" p-2 display-5">Servicios Disponibles</h2>
+                    <div className="col-sm-12 ">
+                        <div className='row gap-3'>{serviceItems}</div>
                     </div>
-                    <div className="col-sm-12 "> <div className='row'>{serviceItems}</div></div><br/>
-                    
-                    </div>                  
+                    <br />
+                </div>
 
             </div>
 

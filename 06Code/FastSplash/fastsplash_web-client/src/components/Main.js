@@ -1,11 +1,12 @@
 import axios from '../url/axios';
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import principal from '../public/img/principal.jpg';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../public/css/main.css"
+import { Link } from 'react-router-dom';
 
 const Main = () => {
-
+    const actualUser = JSON.parse(localStorage.getItem('actualUser'));
     return (
         <div>
             <div class="jumbotron mt-4">
@@ -41,7 +42,9 @@ const Main = () => {
                                                 1 personal
                                             </div>
                                             <div className="list-group-item">
+                                            <Link to={actualUser ? '/appointments/new' : '/login'}>
                                                 <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">I'm interested</button>
+                                            </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +69,9 @@ const Main = () => {
                                                 Lavado de llantas
                                             </div>
                                             <div className="list-group-item">
+                                            <Link to={actualUser ? '/appointments/new' : '/login'}>
                                                 <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                            </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +103,9 @@ const Main = () => {
                                             </div>
 
                                             <div className="list-group-item">
+                                            <Link to={actualUser ? '/appointments/new' : '/login'}>
                                                 <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                            </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +146,9 @@ const Main = () => {
                                             </div>
 
                                             <div className="list-group-item">
+                                            <Link to={actualUser ? '/appointments/new' : '/login'}>
                                                 <button className="btn button-b rounded-pill btn-1g btn-block text-truncate">Estoy interesado!</button>
+                                            </Link>
                                             </div>
                                         </div>
                                     </div>

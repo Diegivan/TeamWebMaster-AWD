@@ -11,6 +11,7 @@ class App extends Component {
     state = {
         services: [],
         error: [],
+        errorc: [],
         success: [],
         modalInsert: false,
         modalUpdate: false,
@@ -33,11 +34,11 @@ class App extends Component {
     }
 
     petitionPost = async () => {
-        delete this.state.form._id;
-        if (this.state.form.name === '') {
+        if (!this.state.form || !this.state.form.name || !this.state.form.description || !this.state.form.discount || !this.state.form.price ||
+            this.state.form.name === '' || this.state.form.description === '' || this.state.form.discount === '' || this.state.form.price === '') {
             const temp = [];
             temp.push({ message: "Debe llenar todos los campos" });
-            this.setState({ error: temp });
+            this.setState({ errorc: temp });
         } else {
             await axios.post(url + "admin/new-services", this.state.form).then((response) => {
                 if (!response.data.error) {
@@ -57,20 +58,27 @@ class App extends Component {
     }
 
     petitionPut = async () => {
-        await axios.put(url + "services/edit-service/" + this.state.form._id, this.state.form).then((response) => {
-            if (!response.data.error) {
-                this.modalUpdate();
-                const temp = [];
-                temp.push({ message: "Servicio actualizado correctamente" });
-                this.setState({ success: temp });
-                this.petitionGet();
-            } else {
-                this.setState({ error: response.data.error });
-            }
-            console.log(response, "res");
-        }).catch((error) => {
-            console.log(error.message, "error");
-        })
+        if (!this.state.form || !this.state.form.name || !this.state.form.description || !this.state.form.discount || !this.state.form.price ||
+            this.state.form.name === '' || this.state.form.description === '' || this.state.form.discount === '' || this.state.form.price === '') {
+            const temp = [];
+            temp.push({ message: "Debe llenar todos los campos" });
+            this.setState({ errorc: temp });
+        } else {
+            await axios.put(url + "services/edit-service/" + this.state.form._id, this.state.form).then((response) => {
+                if (!response.data.error) {
+                    this.modalUpdate();
+                    const temp = [];
+                    temp.push({ message: "Servicio actualizado correctamente" });
+                    this.setState({ success: temp });
+                    this.petitionGet();
+                } else {
+                    this.setState({ error: response.data.error });
+                }
+                console.log(response, "res");
+            }).catch((error) => {
+                console.log(error.message, "error");
+            })
+        }
     }
 
     petitionDelete = async () => {
@@ -84,11 +92,11 @@ class App extends Component {
     }
 
     modalInsert = () => {
-        this.setState({ modalInsert: !this.state.modalInsert, error: [] });
+        this.setState({ modalInsert: !this.state.modalInsert, error: [], errorc: [] });
     }
 
     modalUpdate = () => {
-        this.setState({ modalUpdate: !this.state.modalUpdate, error: [] });
+        this.setState({ modalUpdate: !this.state.modalUpdate, error: [], errorc: [] });
     }
 
     selectService = (service) => {
@@ -98,7 +106,7 @@ class App extends Component {
                 _id: service._id,
                 name: service.name,
                 description: service.description,
-                price: (service.price/(1+0.12)).toFixed(2),
+                price: (service.price / (1 + 0.12)).toFixed(2),
                 discount: service.discount,
             }
         })
@@ -112,7 +120,7 @@ class App extends Component {
                 price: this.state.form ? this.state.form.price : 0.00,
                 discount: this.state.form ? this.state.form.discount : 0.00,
                 [e.target.name]: e.target.value
-            } 
+            }
         });
         console.log(this.state.form);
     }
@@ -122,7 +130,7 @@ class App extends Component {
     }
 
     successButton = () => {
-        this.setState({ success: [], error: [] });
+        this.setState({ success: [], error: [], errorc: [] });
     }
 
     render() {
@@ -207,14 +215,13 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errorc.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errorc.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     : ''
                                 }
@@ -264,14 +271,13 @@ class App extends Component {
                     <ModalBody>
                         <div>
                             <div className="card">
-                                {this.state.error.length > 0 ?
+                                {this.state.errorc.length > 0 ?
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {this.state.error.map((errors) => {
+                                        {this.state.errorc.map((errors) => {
                                             return (
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     : ''
                                 }

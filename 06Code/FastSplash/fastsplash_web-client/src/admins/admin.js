@@ -14,6 +14,7 @@ class App extends Component {
         error: [],
         errora: [],
         success: [],
+        valid: [],
         modalInsert: false,
         modalUpdate: false,
         modalEliminar: false,
@@ -41,6 +42,7 @@ class App extends Component {
 
     petitionPost = async () => {
         const temp = [];
+        const validation = [];
         if (!this.state.form ||  !this.state.form.name || !this.state.form.lastname || !this.state.form.CI ||
             !this.state.form.userName || !this.state.form.password || 
             !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
@@ -52,9 +54,11 @@ class App extends Component {
         else {
             if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.name)) {
                 temp.push({ message: "El nombre unicamente debe llevar letras" });
+                validation.push("firstName");
             }
             if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastname)) {
                 temp.push({ message: "El apellido unicamente debe llevar letras" });
+                validation.push("lastName");
             }
             if ( this.state.form.CI) {
                 var total = 0;
@@ -66,6 +70,7 @@ class App extends Component {
                 if (longitud === 10) {
                     if (isNaN( this.state.form.CI)) {
                         temp.push({ message: "La CI solo puede contener numeros" });
+                        validation.push("ci");
                     }
                     else {
                         for (var i = 0; i < longCheck; i++) {
@@ -73,6 +78,7 @@ class App extends Component {
                                 let firstNumbers = parseInt( this.state.form.CI.charAt(i)) * 10 + parseInt( this.state.form.CI.charAt(i + 1));
                                 if (firstNumbers >= 25) {
                                     temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                    validation.push("ci");  
                                 }
                             }
                             if (i % 2 === 0) {
@@ -88,6 +94,7 @@ class App extends Component {
 
                         if ( this.state.form.CI.charAt(longitud - 1) != total) {
                             temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                            validation.push("ci");
                         }
                         else {
 
@@ -96,22 +103,28 @@ class App extends Component {
                 }
                 else {
                     temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                    validation.push("ci");
                 }
             }
             if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
                 temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+                validation.push("userName");
             }
             if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
                 temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                validation.push("password");
                 if (this.state.form.password.length < 8) {
                     temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                    validation.push("password");
                 }
                 if (this.state.form.password.length > 16) {
                     temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                    validation.push("password");
                 }
             }
             if (this.state.form.password !== this.state.form.confirmPassword) {
                 temp.push({ message: "Las contraseñas no coinciden" });
+                validation.push("confirmPassword");
             }
             if (temp.length == 0) {
                 await axios.post(url + "admin/new-admin", this.state.form).then((response) => {
@@ -122,7 +135,7 @@ class App extends Component {
                         this.setState({ success: temp });
                         this.petitionGet();
                     } else {
-                        this.setState({ error: response.data.error });
+                        this.setState({ errora: response.data.error });
                     }
                     console.log(response, "res");
                 }).catch((error) => {
@@ -131,6 +144,7 @@ class App extends Component {
             }
             else {
                 this.setState({ errora: temp });
+                this.setState({ valid: validation });
             }
         }
        
@@ -138,20 +152,21 @@ class App extends Component {
 
     petitionPut = async () => {
         const temp = [];
+        const validation = [];
         if (!this.state.form ||  !this.state.form.name || !this.state.form.lastname || !this.state.form.CI ||
-            !this.state.form.userName || !this.state.form.password || 
-            !this.state.form.confirmPassword || !this.state.form.rol || this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
-        this.state.form.userName === '' || this.state.form.password === '' || 
-        this.state.form.confirmPassword === '' || this.state.form.rol === '') {
+            !this.state.form.userName || !this.state.form.rol || this.state.form.name === '' || this.state.form.lastname === '' || this.state.form.CI === '' ||
+        this.state.form.userName === '' || this.state.form.rol === '') {
             temp.push({ message: "Debe llenar todos los campos" });
             this.setState({ errora: temp });
         }
         else {
             if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.name)) {
                 temp.push({ message: "El nombre unicamente debe llevar letras" });
+                validation.push("firstName");
             }
             if (!/^[a-zA-ZÀ-ÿ\s]{1,50}$/.test(this.state.form.lastname)) {
                 temp.push({ message: "El apellido unicamente debe llevar letras" });
+                validation.push("lastName");
             }
             if ( this.state.form.CI) {
                 var total = 0;
@@ -163,6 +178,7 @@ class App extends Component {
                 if (longitud === 10) {
                     if (isNaN( this.state.form.CI)) {
                         temp.push({ message: "La CI solo puede contener numeros" });
+                        validation.push("ci");
                     }
                     else {
                         for (var i = 0; i < longCheck; i++) {
@@ -170,6 +186,7 @@ class App extends Component {
                                 let firstNumbers = parseInt( this.state.form.CI.charAt(i)) * 10 + parseInt( this.state.form.CI.charAt(i + 1));
                                 if (firstNumbers >= 25) {
                                     temp.push({ message: "La CI no corresponde a ninguna provincia" });
+                                    validation.push("ci");
                                 }
                             }
                             if (i % 2 === 0) {
@@ -185,6 +202,7 @@ class App extends Component {
 
                         if ( this.state.form.CI.charAt(longitud - 1) != total) {
                             temp.push({ message: "Debe ingresar una CI ecuatoriana" });
+                            validation.push("ci");
                         }
                         else {
 
@@ -193,22 +211,30 @@ class App extends Component {
                 }
                 else {
                     temp.push({ message: "Debe ingresar 10 digitos en la cedula" });
+                    validation.push("ci");
                 }
             }
             if (!/^[a-zA-ZÀ-ÿ0-9-_]{1,20}$/.test(this.state.form.userName)) {
                 temp.push({ message: "El nombre de usuario solo puede contener caracteres alfanumericos" });
+                validation.push("email");
             }
-            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
-                temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
-                if (this.state.form.password.length < 8) {
-                    temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+            if(this.state.form.actualPassword && this.state.form.actualPassword !== ''){
+                if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8,16}$/.test(this.state.form.password)) {
+                    temp.push({ message: "La contraseña debe tener mínimo una mayúscula, una minúscula y un número" });
+                    validation.push("password");
+                    if (this.state.form.password.length < 8) {
+                        temp.push({ message: "La contraseña debe ser mayor a 8 caracteres" });
+                        validation.push("password");
+                    }
+                    if (this.state.form.password.length > 16) {
+                        temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                        validation.push("password");
+                    }
                 }
-                if (this.state.form.password.length > 16) {
-                    temp.push({ message: "La contraseña debe ser menor a 16 caracteres" });
+                if (this.state.form.password !== this.state.form.confirmPassword) {
+                    temp.push({ message: "Las contraseñas no coinciden" });
+                    validation.push("confirmPassword");
                 }
-            }
-            if (this.state.form.password !== this.state.form.confirmPassword) {
-                temp.push({ message: "Las contraseñas no coinciden" });
             }
             if (temp.length == 0) {
                 await axios.put(url + "admin/edit-admins/" + this.state.form._id, this.state.form).then((response) => {
@@ -228,6 +254,7 @@ class App extends Component {
             }
             else {
                 this.setState({ errora: temp });
+                this.setState({ valid: validation });
             }
         }
 
@@ -244,11 +271,11 @@ class App extends Component {
     }
 
     modalInsert = () => {
-        this.setState({ modalInsert: !this.state.modalInsert, error: [], errora: [] });
+        this.setState({ modalInsert: !this.state.modalInsert, error: [], errora: [], valid: []  });
     }
 
     modalUpdate = () => {
-        this.setState({ modalUpdate: !this.state.modalUpdate, error: [], errora: [] });
+        this.setState({ modalUpdate: !this.state.modalUpdate, error: [], errora: [], valid: []  });
     }
 
     selectAdmin = (admin, user) => {
@@ -285,7 +312,7 @@ class App extends Component {
     }
 
     successButton = () => {
-        this.setState({ success: [], error: [] });
+        this.setState({ success: [], error: [], valid: [], errora: []  });
     }
 
     checkAuth = () => {
@@ -296,6 +323,7 @@ class App extends Component {
 
     render() {
         const { form } = this.state;
+        const { valid } = this.state;
         const actualUser = JSON.parse(localStorage.getItem('actualUser'));
         if (!actualUser || actualUser.rol != 2) {
             localStorage.clear();
@@ -401,21 +429,21 @@ class App extends Component {
 
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <input type="text" name="name" id="name" className="form-control mb-3" title="First Name"
+                                        <input type="text" name="name" id="name" className={valid.includes('firstName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="First Name"
                                             placeholder="Nombre" value={form ? form.name : ''} autoFocus onChange={this.handleChange} />
-                                        <input type="text" name="lastname" id="lastname" className="form-control mb-3" title="Last Name"
+                                        <input type="text" name="lastname" id="lastname" className={valid.includes('lastName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Last Name"
                                             placeholder="Apellido" value={form ? form.lastname : ''} onChange={this.handleChange} />
                                     </div>
                                     <div className="form-group ">
-                                        <input type="text" name="CI" id="CI" className="form-control mb-3" title="Cédula" placeholder="Cédula" value={form ? form.CI : ''} onChange={this.handleChange} />
+                                        <input type="text" name="CI" id="CI" className={valid.includes('ci') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Cédula" placeholder="Cédula" value={form ? form.CI : ''} onChange={this.handleChange} />
                                     </div>
                                     <hr />
                                     <div className="form-group mt-2">
-                                        <input type="text" name="userName" id="userName" className="form-control mb-3" title="User"
+                                        <input type="text" name="userName" id="userName" className={valid.includes('userName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="User"
                                             placeholder="Usuario" value={form ? form.userName : ''} onChange={this.handleChange} />
-                                        <input type="password" name="password" id="password" className="form-control mb-3" title="Password"
+                                        <input type="password" name="password" id="password" className={valid.includes('password') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Password"
                                             placeholder="Contraseña" value={form ? form.password : ''} onChange={this.handleChange} />
-                                        <input type="password" name="confirmPassword" id="confirmPassword" className="form-control mb-3"
+                                        <input type="password" name="confirmPassword" id="confirmPassword" className={valid.includes('confirmPassword') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'}
                                             title="Confirm Password" placeholder="Confirmar Contraseña" value={form ? form.confirmPassword : ''} onChange={this.handleChange} />
                                         <input type="hidden" name="rol" id="rol" value={form ? form.rol : '1'} onChange={this.handleChange} />
                                     </div>
@@ -454,30 +482,29 @@ class App extends Component {
                                                 <div>- {errors.message}</div>
                                             )
                                         })}
-                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     : ''
                                 }
 
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <input type="text" name="name" id="name" className="form-control mb-3" title="First Name"
+                                        <input type="text" name="name" id="name" className={valid.includes('firstName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="First Name"
                                             placeholder="Nombre" value={form ? form.name : ''} autofocus onChange={this.handleChange} />
-                                        <input type="text" name="lastname" id="lastname" className="form-control mb-3" title="Last Name"
+                                        <input type="text" name="lastname" id="lastname" className={valid.includes('lastName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Last Name"
                                             placeholder="Apellido" value={form ? form.lastname : ''} onChange={this.handleChange} />
                                     </div>
                                     <div className="form-group ">
-                                        <input type="text" name="CI" id="CI" className="form-control mb-3" title="CI" placeholder="Cédula" value={form ? form.CI : ''} onChange={this.handleChange} readOnly />
+                                        <input type="text" name="CI" id="CI" className={valid.includes('ci') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="CI" placeholder="Cédula" value={form ? form.CI : ''} onChange={this.handleChange} readOnly />
                                     </div>
                                     <hr />
                                     <div className="form-group mt-2">
-                                        <input type="text" name="userName" id="userName" className="form-control mb-3" title="User"
+                                        <input type="text" name="userName" id="userName" className={valid.includes('userName') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="User"
                                             placeholder="Usuario" value={form ? form.userName : ''} onChange={this.handleChange} readOnly />
-                                        <input type="password" name="actualPassword" id="actualPassword" className="form-control mb-3" title="Contraseña Actual"
+                                        <input type="password" name="actualPassword" id="actualPassword" className={valid.includes('actualPassword') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Contraseña Actual"
                                             placeholder="Contraseña Actual" value={form ? form.actualPassword : ''} onChange={this.handleChange} />
-                                        <input type="password" name="password" id="password" className="form-control mb-3" title="Password"
+                                        <input type="password" name="password" id="password" className={valid.includes('password') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'} title="Password"
                                             placeholder="Contraseña" onChange={this.handleChange} />
-                                        <input type="password" name="confirmPassword" id="confirmPassword" className="form-control mb-3"
+                                        <input type="password" name="confirmPassword" id="confirmPassword" className={valid.includes('confirmPassword') ? 'form-control mb-3 is-invalid' : 'form-control mb-3'}
                                             title="Confirm Password" placeholder="Confirmar Contraseña" value={form ? form.confirmPassword : ''} onChange={this.handleChange} />
                                         <input type="hidden" name="rol" id="rol" value={form ? form.rol : '1'} onChange={this.handleChange} />
                                     </div>

@@ -9,11 +9,15 @@ import { Link } from 'react-router-dom'
 import api from '../url/axios'
 
 class App extends Component {
+
     state = {
         appointments: [],
         services: [],
         error: [],
         success: [],
+        min: '',
+        errorc: [],
+        valid: [],
         form: {
             _id: '',
             Name: '',
@@ -38,24 +42,79 @@ class App extends Component {
     }
 
     petitionPost = async () => {
+        const validation = [];
+        const temp = [];
         if (!this.state.form || !this.state.form.Name || !this.state.form.Adress || !this.state.form.cars ||
             !this.state.form.services || !this.state.form.hours || !this.state.form.Date ||
             this.state.form.Name === '' || this.state.form.Adress === '' || this.state.form.cars === '' ||
             this.state.form.services === '' || this.state.form.hours === '' || this.state.form.Date === '') {
-            const temp = [];
             temp.push({ message: "Debe llenar todos los campos" });
-            this.setState({ error: temp });
+            this.setState({ errorc: temp });
         } else {
-            await api.post("appointment", this.state.form).then((response) => {
-                if (!response.data.error) {
-                    window.location.href = 'http://localhost:3028/appointments/me';
-                } else {
-                    this.setState({ error: response.data.error });
+            if (!/^[[A-Za-z]{3}-[\d]{3,4}$/.test(this.state.form.Plate)) {
+                temp.push({ message: "Por favor ingrese una placa valida, ejemplo AAA-123" });
+                validation.push("Plate");
+            }
+            if (this.state.form.Date) {
+                var today = new Date();
+                var yyToday = today.getFullYear();
+                var day = today.getDate();
+                var mounth = today.getMonth() + 1;
+
+                var dateArr = this.state.form.Date.split("-");
+                var yyDate = dateArr[0];
+                var mmDate = dateArr[1];
+
+                var dayappoitment = dateArr[2]
+                if ((yyDate < yyToday)) {
+                    temp.push({ message: "El dia de la cita debe ser mayor a la fecha actual, el año es menor al actual" });
+                    validation.push("Date");
                 }
-                console.log(response, "res");
-            }).catch((error) => {
-                console.log(error.message, "error");
-            })
+
+                else {
+                    if (parseInt(mmDate) < mounth) {
+                        temp.push({ message: "El dia de la cita debe ser mayor a la fecha actual, el mes es menor al actual" });
+                        validation.push("Date");
+                    }
+                    else {
+                        if (dayappoitment < day && parseInt(mmDate) <= mounth) {
+                            temp.push({ message: "El dia de la cita debe ser mayor a la fecha actual, el dia es menor al actual" });
+                            validation.push("Date");
+                        }
+
+                        else {
+                            var day1 = new Date(mmDate + '/' + dayappoitment + '/' + yyDate);
+                            var day2 = new Date(today);
+                            var difference = Math.round((day1.getTime() - day2.getTime()) / 86400000);
+                            if (difference > 15) {
+                                temp.push({ message: "El dia de la cita agendada no debe ser mayor a 15 dias" });
+                                validation.push("Date");
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (temp.length == 0) {
+                await api.post("appointment", this.state.form).then((response) => {
+                    if (!response.data.error) {
+                        window.location.href = 'http://localhost:3028/appointments/me';
+                    } else {
+                        this.setState({ errorc: response.data.error });
+                        this.setState({ valid: [] });
+
+                    }
+                    console.log(response, "res");
+                }).catch((error) => {
+                    console.log(error.message, "error");
+                })
+
+            }
+            else {
+                this.setState({ errorc: temp });
+                this.setState({ valid: validation });
+            }
+
         }
     }
 
@@ -95,9 +154,25 @@ class App extends Component {
         });
         console.log(this.state.form);
     }
+    getToday = () => {
+        var f = new Date();
+        var day = f.getDate();
+        if (day <= 9) {
+            day = '0' + day;
+        }
+        var month = f.getMonth() + 1;
+        if (month <= 9) {
+            month = '0' + month;
+        }
+        var year = f.getFullYear();
+        var today = year + '-' + month + '-' + day;
 
+        this.setState({ min: today });
+    }
     componentDidMount() {
         this.petitionGet();
+        this.getToday();
+
     }
 
     successButton = () => {
@@ -105,7 +180,7 @@ class App extends Component {
     }
 
     render() {
-        const { form } = this.state;
+        const { form, min, valid } = this.state;
         const actualUser = JSON.parse(localStorage.getItem('actualUser'));
         if (!actualUser || actualUser.rol != 1) {
             localStorage.clear();
@@ -129,9 +204,9 @@ class App extends Component {
                     </div>
                     : ''
                 }
-                {this.state.error.length > 0 ?
+                {this.state.errorc.length > 0 ?
                     <div className="alert alert-danger alert-dismissible fade show" role="error">
-                        {this.state.error.map((error) => {
+                        {this.state.errorc.map((error) => {
                             return (
                                 <div>- {error.message}</div>
                             )
@@ -166,9 +241,9 @@ class App extends Component {
                                 placeholder="Referencia de la dirección" value={form ? form.Reference : ''} onChange={this.handleChange} />
                             <label for="Reference">Referencia de la dirección</label>
                         </div>
-                        <div className="form-floating">
-                            <input type="date" name="Date" id="Date" className="form-control mb-3 form-floating"
-                                title="Fecha" value={form ? form.Date : ''} onChange={this.handleChange} />
+                        <div className="form-floating has-validation">
+                            <input type="date" name="Date" id="Date" className={valid.includes('Date') ? 'form-control mb-3 form-floating is-invalid' : 'form-control form-floating mb-3'}
+                                title="Fecha" value={form ? form.Date : ''} onChange={this.handleChange} min={min} />
                             <label for="Date">Fecha de la cita</label>
                         </div>
                         <div className="form-group">
@@ -184,8 +259,8 @@ class App extends Component {
                         </div>
                         <hr />
                         <h6 className='display-6 mb-2'>Vehículo</h6>
-                        <div className="form-floating">
-                            <input type="text" name="Plate" id="Plate" className="form-control mb-3" title="Placa"
+                        <div className="form-floating has-validation">
+                            <input type="text" name="Plate" id="Plate" className={valid.includes('Plate') ? 'form-control mb-3 form-floating is-invalid' : 'form-control form-floating mb-3'} title="Placa"
                                 placeholder="Placa" value={form ? form.Plate : ''} onChange={this.handleChange} />
                             <label for="Plate">Placa</label>
                         </div>
